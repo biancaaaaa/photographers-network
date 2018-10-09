@@ -13,11 +13,7 @@ class Jobs extends React.Component {
 		locationsFilter: [],
 		typesFilter: [],
 	}
- /** 
- * When the component mounts, check to see if there are some parameters to filter in the link
- * if there are , fetch from the DB just that data, if not fetch all the jobs data
- * Populate types/locations with data from our jobs, to make the filter panel later
- * */
+ 
 	componentDidMount() {
 		const searchQuerry = queryString.parse(this.props.location.search);
 		const requests = fire.database().ref('requests');
@@ -60,10 +56,6 @@ class Jobs extends React.Component {
 		})
 	}
 
- /** 
- * When a checkbox is clicked depending if it is true or not , 
- * it either take the value out of the speicifc array or adds it, in the state.
- * */
 	checkboxChangeHandler = (e) => {
 		const el = e.target;
 		const boxFor = el.dataset.for;

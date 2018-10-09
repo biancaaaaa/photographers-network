@@ -11,16 +11,10 @@ class App extends Component {
   };
   database = fire.database().ref();
 
-  /**
-   * Checks user state, each time a component did mount.
-   */
   componentDidMount() {
     this.authListener();
   }
 
-  /**
-   * Checks, if user is logged in and updates state.
-   */
   authListener = () => {
     fire.auth().onAuthStateChanged(user => {
       if (user) {
@@ -40,10 +34,6 @@ class App extends Component {
    })
   }
 
-  /**
-   *
-   * @param userId
-   */
   getUserInfos = (userId) => {
 		this.database
 			.child("users")

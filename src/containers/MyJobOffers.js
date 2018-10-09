@@ -29,18 +29,14 @@ class MyJobOffersFetch extends React.Component {
 	};
 
 	componentDidMount() {
-		/** 
-		* Check if there is a user on and if it is a company
-		**/
+		
 		if(!this.props.user || this.props.user.type!=='company'){
 			this.props.history.replace('/');
 		} else {
-			//First get the data about the current company which jobs they have
 			fire.database()
 				.ref('company')
 				.child(this.props.user.uid)
 				.once('value', (snap) => {
-					/*After having the keys of the jobs go ahead and get the data about them */
 					let jobsIds = Object.keys(snap.val().postedJobs || {});
 
 					if (jobsIds.length === 0) {

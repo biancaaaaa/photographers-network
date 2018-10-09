@@ -1,10 +1,7 @@
-// dependencies
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
 import fire from '../config/Fire';
-
-// components
 import { DashboardViewWithNav } from "../components/dashboardComponents/DashboardView";
 
 export default class Dashboard extends Component {
@@ -35,12 +32,6 @@ export default class Dashboard extends Component {
   };
   database = fire.database().ref();
 
-  /**
-   * Sets the clicked element to active.
-   *
-   * @param name
-   * @param type
-   */
   setComponentToShow = (name, type) => {
     const activeType = this.state[type];
     let headerLinks = [...activeType.headerLinks];
@@ -59,13 +50,8 @@ export default class Dashboard extends Component {
       activeType.headerLinks.map((link) => {
         if (link.active) activeComponent = link.name;
       });
-    } // either company or photographer
-
-
-    // checks, if there is already a response of the database
-    // if not, shows the loading page
-    // if yes, checks, if there is actually a user (to avoid to get to the dashboard
-    // by just typing dashboard into the url), if there's none, redirects to home
+    } 
+    
     return (
       <React.Fragment>
         {

@@ -1,13 +1,8 @@
-// dependencies
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import fire from '../config/Fire';
-
-// components
 import {ProfileCard} from "../components/ProfileCard";
 import {LinkLists} from "../components/LinkLists";
-
-// containers
 import PhotographerContent from "./PhotographerContent";
 import CompanyContent from "./CompanyContent";
 import LoadingPage from "../components/LoadingPage";
@@ -30,9 +25,6 @@ class Profile extends Component {
     this.fetchUserInformation();
   }
 
-  /**
-   * Fetches user information from the database with the uid-param.
-   */
   fetchUserInformation = () => {
     const {uid} = this.state;
     this.database.child('users').child(uid).once('value')
@@ -60,8 +52,6 @@ class Profile extends Component {
     let loaded = false;
     let currUser = null;
 
-    // looks if there is response from the current user
-    // and the user data has been already fetched
     if (!loading && fetchedUserData) {
       if (user) {
         otherUser = user.uid !== uid;

@@ -1,11 +1,6 @@
-// dependencies
 import React, {Component} from "react";
 import fire from '../config/Fire';
-
-// containers
 import GbNavBar from '../components/gbNav';
-
-// components
 import {GbFooter} from "../components/Footer";
 import {InstagramSVG} from "../components/svg/InstagramSVG";
 import {TwitterSVG} from "../components/svg/TwitterSVG";
@@ -13,9 +8,7 @@ import {FacebookSVG} from "../components/svg/FacebookSVG";
 
 export const NavFooterWrapper = WrappedComponent => {
   return class extends Component {
-    /**
-     * Logs out the user and redirects him to home.
-     */
+    
     state = {
       userOn : false,
       links : [{txt: 'Home' , link:'home' , nav:true},{txt: 'Jobs' , link:'jobs' , nav:true},{txt: 'Sign in', link: 'signIn'}]
@@ -32,8 +25,6 @@ export const NavFooterWrapper = WrappedComponent => {
           this.setState(()=>({
             userOn : true,
             links : [
-              {txt: 'Home' , link:'home' , nav:true},
-              {txt: 'Create Job' , link:'createJob' , nav:true},
               {txt: 'Dashboard' , link: 'dashboard' , nav:true},
               {txt: 'Sign out', clickHandler : this.logout}]
           }))
@@ -41,8 +32,6 @@ export const NavFooterWrapper = WrappedComponent => {
           this.setState(()=>({
             userOn : true,
             links : [
-              {txt: 'Home' , link:'home' , nav:true},
-              {txt: 'Jobs' , link:'jobs' , nav:true},
               {txt: 'Dashboard' , link: 'dashboard' , nav:true},
               {txt: 'Sign out', clickHandler : this.logout}]
           }))
