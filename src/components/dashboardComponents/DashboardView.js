@@ -1,13 +1,8 @@
-// dependencies
 import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
-
-// components
 import {DashboardHeader} from "./DashboardHeader";
 import {NavFooterWrapper} from "../../containers/NavFooterWrapper";
-
-// containers
 import MyJobOffers from '../../containers/MyJobOffers';
 import AppliedJobs from "../../containers/AppliedJobs";
 
@@ -16,7 +11,6 @@ const DashboardView = ({user, type, linkHandler, activeComponent, headerLinks, l
 
   let currentComponent = '';
 
-  //TODO: maybe find a better solultion than the switch?
   switch (activeComponent) {
     case "Home":
       currentComponent = type === "photographer" ?

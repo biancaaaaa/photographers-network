@@ -12,20 +12,12 @@ export default class SignUp extends Component {
 		location: "",
 	};
 	database = fire.database().ref();
-
-	/**
-		* Updates state to the current value of a certain target.
-		* @param e
-		*/
+	
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	/**
-		* Registers the user as photographer or company.
-		*
-		* @param e
-		*/
+	
 	signup = (e) => {
 		e.preventDefault();
 		const { name, email, password, password2, type, location } = this.state;
@@ -37,7 +29,7 @@ export default class SignUp extends Component {
 						displayName: name,
 						photoURL: 'https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=6dd9dc582c677370d110940fda65b992'
 					});
-					//TODO: find better profile url
+					
 					this.database.child(type).child(user.uid).set({
 						email: user.email,
 						location: location

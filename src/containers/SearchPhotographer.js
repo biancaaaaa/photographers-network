@@ -15,20 +15,11 @@ export default class SearchPhotographer extends Component {
   };
   database = fire.database().ref();
 
-  /**
-   * Updates state to the current value of a certain target.
-   * @param e
-   */
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-  /**
-   * Looks for all photographers in the certain location.
-   *
-   * @param e
-   * @param location
-   */
+  
   search = (e, location) => {
     e.preventDefault();
     let photographers = [];
@@ -49,9 +40,6 @@ export default class SearchPhotographer extends Component {
       });
   };
 
-  /**
-   * Logs out the user and redirects him to home.
-   */
   logout = () => {
     fire.auth().signOut();
     this.props.history.push("/");

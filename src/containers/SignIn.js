@@ -4,6 +4,7 @@ import { EmailSVG } from "../components/svg/EmailSVG";
 import { PasswordSVG } from "../components/svg/PasswordSVG";
 import { Error } from "../components/Error";
 import { InputField } from "../components/InputField";
+import GbNavBar from '../components/gbNav';
 
 export default class SignIn extends Component {
   state = {
@@ -11,24 +12,19 @@ export default class SignIn extends Component {
     password: "",
     type: "photographer",
     errorMessage: "",
-    error: false
+    error: false,
+    links : [{txt: 'Home' , link:'home' , nav:true}]
+
   };
   componentDidMount(){
    this.props.setLoadingTrue();
   }
-  /**
-   * Updates state to the current value of a certain target.
-   * @param e
-   */
+ 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  /**
-   * Logs in user. Doesn't log in user, if he's no photographer/company.
-   *
-   * @param e
-   */
+ 
   login = e => {
     e.preventDefault();
     fire
@@ -42,14 +38,21 @@ export default class SignIn extends Component {
       });
   };
 
+
   render() {
     return (
       <div>
+          <GbNavBar
+            righLinks={
+              this.state.links
+            }
+            loggedIn={false}
+          />
         <div className="section-content">
-          <form onSubmit={this.login}>
+          <form onSubmit={this.login} className="gb-margin-top-40">
             <h1>Sign in</h1>
             <InputField
-              wrapperClass="gb-input-wrapper"
+              wrapperClass="gb-input-wrapper "
               svg={<EmailSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon" />}
               value={this.state.email}
               changeHandler={this.handleChange}

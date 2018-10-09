@@ -15,9 +15,7 @@ export default class CreateJobb extends React.Component {
   today : '',
  };
 
-/**
-* Create a date with format YYYY-MM-DD
-**/
+
 createValidDate = date => {
  const year = date.getFullYear();
  const day = date.getDate();
@@ -25,10 +23,7 @@ createValidDate = date => {
  return `${year}-${month >= 10 ? month : `0${month}`}-${day >= 10 ? day : `0${day}`}`;
 };
 
-/**
-* When the component mounts, after the loading is done
-* if the user is not a company redirect him to his dashboard
-**/
+
 componentDidMount() {
  if (this.props.loading === false && this.props.user.type != 'company') {
   this.props.history.replace('/dashboard');
@@ -40,9 +35,7 @@ componentDidMount() {
  })
 }
 
-/**
-* Function that deal with the custom select
-**/
+
  optionSelectHandler = (type) => {
   this.setState({
    jobbType: type,
@@ -68,19 +61,14 @@ componentDidMount() {
   );
  };
 
-/**
-* Input change handler that updates the state of the component
-**/
+
  changeHandler = (e) => {
   this.setState({
    [`jobb${e.target.name}`]: e.target.value
   })
  }
 
-/**
-* Function that check if all the inputs are completed with the right data 
-* before sending the form
-**/
+
  inputChecker = () => {
   const { jobbTitle, jobbLocation, jobbType, jobbBudget, jobbDate } = this.state;
   if (!jobbTitle) {
@@ -102,9 +90,7 @@ componentDidMount() {
 
  }
 
-/**
-* Function called when the form is submited
-**/
+
  submitHandler = (e) => {
   e.preventDefault();
   const { jobbTitle, jobbLocation, jobbType, jobbBudget, jobbDate, jobbDescription } = this.state;

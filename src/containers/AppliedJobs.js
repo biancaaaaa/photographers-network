@@ -1,10 +1,7 @@
-// dependencies
+
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
 import fire from '../config/Fire';
-
-// components
 import { GbCard50 } from '../components/gbCard50';
 
 export default class AppliedJobs extends Component {
@@ -21,9 +18,6 @@ export default class AppliedJobs extends Component {
   }
 }
 
-/**
- * Helper component because we need user information to fetch data from the database.
- */
 class AppliedJobsFetch extends Component {
   state = {
     loadedDb: false,
@@ -36,9 +30,7 @@ class AppliedJobsFetch extends Component {
     this.fetchJobs();
   }
 
-  /**
-   * Fetches applied jobs from current user from database.
-   */
+  
   fetchJobs() {
     const { user } = this.props;
     let jobs = [];
