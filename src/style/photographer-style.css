@@ -1731,6 +1731,15 @@ span.bread-crumb-click-area {
   align-items: center;
 }
 
+.card-7-content.full-width {
+  width: 100vw;
+  max-width: none;
+}
+
+.card-7-content .gb-overflow-x-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 .white-circle {
   width: 50px;
   height: 50px;

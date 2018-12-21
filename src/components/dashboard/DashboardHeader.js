@@ -13,7 +13,7 @@ export const DashboardHeader = ({
           className="gb-card-7-height gb-background-primary"
         >
           <div className="card-7-shadow-overlay" />
-          <div className="card-7-content">
+          <div className="card-7-content full-width">
             <div className="gb-overflow-x-scroll">
               {links.map((link, key) => {
                 return (

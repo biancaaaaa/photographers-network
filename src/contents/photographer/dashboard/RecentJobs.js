@@ -11,10 +11,12 @@ const RecentJobs = ({jobs}) => {
   if (isEmpty(jobs)) {
     return <h2>You have no jobs!</h2>;
   }
+  // show the last 5 finished jobs
+  const finishedJobs = jobs.filter(job => job.status === "closed").slice(0, 6);
   return (
     <ul className="paymentList">
       {
-        jobs.map(job =>
+        finishedJobs.map(job =>
           <JobCard key={job.id} {...job} moreLink={true}/>
         )
       }

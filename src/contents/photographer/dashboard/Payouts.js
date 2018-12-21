@@ -13,7 +13,8 @@ class Payouts extends React.Component {
     if (profile.type !== match.params.type) return <Redirect to={`payout/${profile.type}`}/>;
     if (!isLoaded(jobOffers)) return <LoadingPage/>;
 
-    const jobs = jobOffers.filter(job => job.photographer.uid === auth.uid);
+    const jobs = profile.type === "photographer" ? jobOffers.filter(job => job.photographer.uid === auth.uid) :
+    jobOffers.filter(job => job.companyId === auth.uid);
     // get the sum of all payouts
     let total = 0;
     jobs.forEach(job => {
@@ -22,22 +23,17 @@ class Payouts extends React.Component {
 
     return (
       <div>
-        {
-          match.params.type === "photographer" ?
-            <React.Fragment>
-              <ul className="paymentList">
-                {
-                  jobs.map(job =>
-                    <JobCard key={job.id} {...job}/>
-                  )
-                }
-              </ul>
-              <div className="black-yellow-box">
-                <span className="uppercase light">Total</span>
-                <b>{total} € </b>
-              </div>
-            </React.Fragment> : <div className="dashboard-container">Company!</div>
-        }
+        <ul className="paymentList">
+          {
+            jobs.map(job =>
+              <JobCard key={job.id} {...job}/>
+            )
+          }
+        </ul>
+        <div className="black-yellow-box">
+          <span className="uppercase light">Total</span>
+          <b>{total} € </b>
+        </div>
       </div>
     );
   }
