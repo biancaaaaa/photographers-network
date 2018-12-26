@@ -1302,9 +1302,10 @@ input.gb-swithcer-checkbox:checked+.gb-switcher-slider:before {
   -webkit-transition: 0.3s ease-in-out all;
   -o-transition: 0.3s ease-in-out all;
   transition: 0.3s ease-in-out all;
+  /*
   -webkit-transition: 0.3s linear transform;
   -o-transition: 0.3s linear transform;
-  transition: 0.3s linear transform;
+  transition: 0.3s linear transform;*/
 }
 
 .gb-navbar.translated {
@@ -4590,7 +4591,6 @@ ul.carousel-1-pagination {
   align-items: center;
   width: 90%;
   max-width: 350px;
-  margin: 0 auto;
   margin: 5px auto;
   font-size: 12px;
 }
@@ -4650,8 +4650,6 @@ ul.carousel-1-pagination {
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
-  width: 100%;
   padding-right: 26px;
   width: 80%;
   display: flex;

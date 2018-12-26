@@ -1,58 +1,81 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+
+// svg's
 import { StarSVG } from "../svg/StarSVG";
+import JobOffertURL from "../../svg/job-offerts.svg";
+import BillingInfoURL from "../../svg/billing-informations.svg";
+import PayoutPhoURL from "../../svg/payout-photographer.svg";
+import PayoutComURL from "../../svg/payout companies.svg";
+import SearchPhotoURL from "../../svg/search-photographer.svg";
+import CreateJobURL from "../../svg/create-job-offerts.svg";
+import DashboardURL from "../../svg/dashboard.svg";
+import ProfileURL from "../../svg/profile.svg";
+
 const links = {
   photographer: [
     {
       to: "dashboard",
-      txt: "DASHBOARD"
+      txt: "DASHBOARD",
+      svg: <img src={DashboardURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="dashboard" />
     },
     {
       to: "jobs",
-      txt: "JOB OFFERTS"
+      txt: "JOB OFFERTS",
+      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offer" />
     },
     {
       to: "ProfileEdit",
-      txt: "PROFILE SETTINGS"
+      txt: "PROFILE SETTINGS",
+      svg: <img src={ProfileURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="profile-edit" />
     },
     {
-      to: "#",
-      txt: "BILLING INFORMATION"
+      to: "dashboard/billing-information",
+      txt: "BILLING INFORMATION",
+      svg: <img src={BillingInfoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="billing-info" />
     },
     {
-      to: "#",
-      txt: "PAY OUT"
+      to: "dashboard/payout/photographer",
+      txt: "PAY OUT",
+      svg: <img src={PayoutPhoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout" />
     }
   ],
   company: [
     {
       to: "dashboard",
-      txt: "DASHBOARD"
+      txt: "DASHBOARD",
+      svg: <img src={DashboardURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="dashboard"/>
     },
     {
       to: "search-photographers",
-      txt: "SEARCH PHOTOGRAPHERS"
+      txt: "SEARCH PHOTOGRAPHERS",
+      svg: <img src={SearchPhotoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="search"/>
     },
     {
       to: "createJob",
-      txt: "CREATE JOB OFFERT"
+      txt: "CREATE JOB OFFERT",
+      svg: <img src={CreateJobURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="create-job"/>
     },
     {
       to: "jobs",
-      txt: "JOB OFFERTS"
+      txt: "JOB OFFERTS",
+      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
     },
     {
       to: "ProfileEdit",
-      txt: "PROFILE SETTINGS"
+      txt: "PROFILE SETTINGS",
+      svg: <img src={ProfileURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="profile"/>
     },
     {
-      to: "#",
-      txt: "BILLING INFORMATION"
+      to: "dashboard/billing-information",
+      txt: "BILLING INFORMATION",
+      svg: <img src={BillingInfoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="billing" />
     },
     {
-      to: "#",
-      txt: "PAY OUT"
+      to: "dashboard/payout/company",
+      txt: "PAY OUT",
+      svg: <img src={PayoutComURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout"/>
     }
   ]
 };
@@ -96,7 +119,7 @@ const GbNavAsideUserOn = ({ expandHandler, user, signOutUser }) => (
           onClick={expandHandler}
         >
           <Link to={`/${el.to}`} className="nav-aside-link gb-text-white">
-            <StarSVG classes="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" />
+            {el.svg}
             <h5 className="gb-text-uppercase gb-text-white gb-title-tiny gb-text-uppercase">
               {el.txt}
             </h5>
@@ -124,6 +147,7 @@ const GbNavAsideUserOn = ({ expandHandler, user, signOutUser }) => (
           <img
             className="gb-avatar gb-avatar-medium"
             src={user.profileImageUrl}
+            alt="avatar"
           />
         </Link>
       </div>

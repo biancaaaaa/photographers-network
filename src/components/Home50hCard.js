@@ -2,7 +2,6 @@ import React from "react";
 import { RoundExpandButton } from "./svg/RoundExpandButton";
 import PropTypes from "prop-types";
 import SignUp from "../contents/shared/sign-up/SignUp";
-import ReactGA from "react-ga";
 
 export default class Home50hCard extends React.Component {
   state = {

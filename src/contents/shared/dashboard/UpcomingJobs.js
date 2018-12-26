@@ -45,16 +45,19 @@ const UpcomingJobs = ({match, upcomingJobsCompany, upcomingJobsPhotographer}) =>
         <div className="col">
           <img src={locationIconURL} alt="location-icon" className="icon"/>
           <h3>{job.location.city}</h3>
-          <p className="small-grey-bold">{job.location.streetName}{job.location.streetNumber || ''}, <br/>133 36 {job.location.city}</p>
+          <p className="small-grey-bold">{job.location.streetName}{job.location.streetNumber || ''}, <br/>133
+            36 {job.location.city}</p>
         </div>
       </div>
       <div className="light-grey-box">
-        <h2 className="uppercase">{job.title}</h2>
-        <p className="description">{job.description}</p>
-        <div className="contact-container">
-          <div className="white-circle" style={{backgroundImage: `url(${contactImg})`}}/>
-          <div className="white-circle"><img src={mailIconURL} alt="mail-icon" className="icon"/></div>
-          <p className="uppercase light small">{isCompany ? 'Photographer' : 'Company'}'s contacts</p>
+        <div className="light-grey-box-content">
+          <h2 className="uppercase">{job.title}</h2>
+          <p className="description">{job.description}</p>
+          <div className="contact-container">
+            <div className="white-circle" style={{backgroundImage: `url(${contactImg})`}}/>
+            <div className="white-circle"><img src={mailIconURL} alt="mail-icon" className="icon"/></div>
+            <p className="uppercase light small">{isCompany ? 'Photographer' : 'Company'}'s contacts</p>
+          </div>
         </div>
       </div>
       <div className="black-yellow-box">

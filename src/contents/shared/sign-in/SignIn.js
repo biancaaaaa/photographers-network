@@ -69,7 +69,7 @@ class SignIn extends Component {
                   type="submit"
                   disabled={true}
                   style={{ opacity: 0.5 }}
-                  className="gb-btn gb-btn-large gb-btn-primary"
+                  className="gb-btn gb-btn-transparent"
                   value="Loading..."
                 />
               ) : succesAuth ? (
@@ -77,8 +77,8 @@ class SignIn extends Component {
                   type="submit"
                   disabled={true}
                   style={{ opacity: 1 }}
-                  className="gb-btn gb-btn-large gb-btn-primary"
-                  value="Succes"
+                  className="gb-btn gb-btn-transparent"
+                  value="Success"
                 />
               ) : (
                 <input

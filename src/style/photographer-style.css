@@ -172,6 +172,7 @@
 .profile-content .flex-container-space {
   display: flex;
   width: calc(100vw - 120px);
+  max-width: 250px;
   justify-content: space-between;
 }
 
@@ -1716,6 +1717,11 @@ span.bread-crumb-click-area {
 .light-grey-box {
   background-color: #efeded;
   padding: 65px;
+}
+
+.light-grey-box .light-grey-box-content {
+  max-width: 350px;
+  margin: auto;
 }
 
 .light-grey-box .description, .paymentList .description {

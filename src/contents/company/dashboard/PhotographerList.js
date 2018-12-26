@@ -10,12 +10,13 @@ export const PhotographerList = ({photographers, profile}) => {
   if (isEmpty(photographers))
     return <p className="dashboard-container no-data">No photographers</p>;
   const ownLocation = Object.values(profile.locations)[0];
+
   const photographersNear = photographers.filter(photographer =>
     Object.values(photographer.locations)[0].city === ownLocation.city);
   return (
-    <ul>
+    <ul className="dashboard-container">
       {
-        photographers.map(photographer =>
+        photographersNear.map(photographer =>
           <Photographer key={photographer.id} {...photographer}/>
         )
       }
