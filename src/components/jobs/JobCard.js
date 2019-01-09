@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const options = {year: 'numeric', month: 'long', day: 'numeric'};
 
-export const JobCard = ({id, title, location, startDate, description, priceAmount, insuranceAmount, moreLink}) => (
+export const JobCard = ({id, title, location, startDate, description, priceAmount, insuranceAmount, moreLink, editBtn}) => (
   <li key={id}>
     <div className="information-container">
       <Link to={`/progress-job/${id}`}>
@@ -18,6 +18,12 @@ export const JobCard = ({id, title, location, startDate, description, priceAmoun
       <Link className="gb-btn gb-btn-small gb-btn-primary gb-btn-white pink-border"
             to={`/progress-job/${id}`}>More
       </Link>
+      }
+      {
+        editBtn &&
+        <Link className="gb-btn gb-btn-small gb-btn-primary gb-btn-white pink-border"
+              to={`/progress-job/${id}`}>Edit
+        </Link>
       }
     </div>
     <b>{Number(priceAmount) + Number(insuranceAmount || 0)} €</b>

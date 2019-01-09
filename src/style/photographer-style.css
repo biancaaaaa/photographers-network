@@ -1,3 +1,10 @@
+input[type="date"]::before{
+  content: attr(placeholder) ": ";
+}
+input[type="date"]:focus::before {
+  content: "" !important;
+}
+
 .image-container img {
   position: absolute;
   top: 0;
@@ -1098,7 +1105,12 @@ li.openjobitem {
 }
 
 .paymentList {
+  padding: 10px;
+}
+
+.paymentList.white-container .gb-btn {
   margin: 10px;
+  display: inline-flex;
 }
 
 .paymentList li {
@@ -1780,6 +1792,101 @@ span.bread-crumb-click-area {
   padding: 20px;
 }
 
+.white-container {
+  padding-top: 1px;
+  background-color: white;
+}
+
+.white-container .gb-btn {
+  margin: auto;
+}
+
+.white-container .inputIcon {
+  right: 20px;
+  left: auto;
+  object-fit: contain;
+}
+
+.white-container .gb-text-input-trans-background {
+  padding: 0 60px 0 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.white-container .custom-select {
+  padding: 0 20px 0 20px;
+}
+
+.red-bg {
+  background-color: #fc0d1c;
+  padding-top: 70px;
+}
+
+.black-bg-header {
+  background-color: black;
+  color: white;
+  font-size: 19px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.form-container {
+  max-width: 385px;
+  margin: 20px auto;
+}
+
+.small-bold-centered {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.black-bg-header .gb-search-form {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.black-bg-header .gb-search-form .filter-icon {
+  height: 22px;
+}
+
+.black-bg-header .gb-search-form .search-input {
+  border-radius: 50px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.black-bg-header .gb-search-form .input-container {
+  position: relative;
+  width: 80%;
+}
+.black-bg-header .gb-search-form .input-container .search-icon {
+  position: absolute;
+  height: 20px;
+  top: 12px;
+  right: 20px;
+}
+
+.two-inputs-container {
+  display: flex;
+}
+
+.two-inputs-container .inputWrapper:nth-child(1) .inputLabel,
+.two-inputs-container .custom-select:nth-child(1) {
+  margin-right: 2.5px;
+}
+
+.two-inputs-container .custom-select {
+  margin-left: 15px;
+  width: 65%;
+}
+
+.two-inputs-container .inputWrapper:nth-child(2) .inputLabel,
+.two-inputs-container .custom-select:nth-child(2) {
+  margin-left: 2.5px;
+}
+
 .dashboard-container .gb-text-input-trans-background {
   border: 1px solid lightgrey;
   color: black;
@@ -1817,10 +1924,13 @@ span.bread-crumb-click-area {
   font-size: 12px;
   font-weight: 500;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .user-li-card .gb-btn-white.pink-border {
   margin-left: 0;
+  display: inline-flex;
+  margin-right: 15px;
 }
 
 /* Signin page start*/

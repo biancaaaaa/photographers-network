@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {Avatar} from "../../../components/label/Avatar";
 
-export const Photographer = ({profileImageUrl, firstName, lastName, locations, description, uid}) => (
+export const Photographer = ({profileImageUrl, firstName, lastName, locations, description, uid, showHireBtn}) => (
   <li className="user-li-card">
     <div className="gb-display-flex">
       <Avatar userImageUrl={profileImageUrl}/>
@@ -19,6 +19,13 @@ export const Photographer = ({profileImageUrl, firstName, lastName, locations, d
           to={`/profile/${uid}`}>
       Profile
     </Link>
+    {
+      showHireBtn &&
+      <Link className="gb-btn gb-btn-small gb-btn-primary gb-btn-white pink-border"
+            to={`/profile/${uid}`}>
+        Hire
+      </Link>
+    }
   </li>
 );
 

@@ -6,8 +6,8 @@ import Home from "../contents/shared/home/Home";
 import SignUp from "../contents/shared/sign-up/SignUp";
 import Profile from "../contents/shared/profile/Profile";
 import SearchPhotographer from "../contents/company/search-photographer/SearchPhotographer";
-import CreateJobb from "../contents/company/create-job/CreateJobb";
-import MyJobOffers from "../contents/company/my-jobs/MyJobOffers";
+import CreateJob from "../contents/company/create-job/CreateJob";
+import MyJobOfferts from "../contents/company/my-jobs/MyJobOfferts";
 import Jobs from "../contents/shared/jobs/Jobs";
 import ProfileEdit from "../contents/shared/profile/ProfileEdit";
 import GbNavBar from "../components/nav-footer/gbNav";
@@ -100,7 +100,7 @@ export default ({ userOn, userType }) => (
             path="/createJob"
             render={props =>
               userType === "company" ? (
-                <CreateJobb {...props} />
+                <CreateJob {...props} />
               ) : (
                 <Redirect to="/dashboard" />
               )
@@ -111,7 +111,7 @@ export default ({ userOn, userType }) => (
             path="/myJobOffers"
             render={props =>
               userType === "company" ? (
-                <MyJobOffers {...props} />
+                <MyJobOfferts {...props} />
               ) : (
                 <Redirect to="/dashboard" />
               )

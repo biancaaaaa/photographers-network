@@ -2,7 +2,7 @@ import React from "react";
 import PlacesAutocomplete, {
   geocodeByAddress
 } from "react-places-autocomplete";
-import { LocationSVG } from "../../components/svg/LocationSVG";
+import locationIconURL from '../../png-icons/location-icon.png';
 
 const searchOptions = {
   types: ["address"]
@@ -99,7 +99,7 @@ export default class LocationSearchInput extends React.Component {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <label className="inputLabel">
-            <LocationSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
+            <img src={locationIconURL} alt="calendar" className="gb-icon-small inputIcon"/>
             <input
               name="location"
               {...getInputProps({
