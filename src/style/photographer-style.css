@@ -1310,6 +1310,7 @@ li.openjobitem {
 }
 
 .gb-home-50h-card-wrapper .black-content-section {
+  z-index: 10;
   min-height: unset;
   height: 0vh !important;
 }
@@ -1598,11 +1599,21 @@ span.bread-crumb-click-area {
   color: white;
   border: 1px solid grey;
   font-size: 10px;
+  transition: .2s linear opacity;
   cursor: pointer;
 }
 
 .gb-btn-transparent:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.gb-btn-transparent:disabled {
+  opacity: .5;
+  cursor: initial;
+}
+
+.gb-btn-transparent:disabled:hover {
+  background-color: transparent;
 }
 
 .white-text-link {
@@ -1981,5 +1992,3 @@ span.bread-crumb-click-area {
   font-size: 24px;
   margin-bottom: 50px;
 }
-
-/* Signin page end */
