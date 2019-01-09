@@ -7,6 +7,7 @@ import { SingUpView } from "../../../components/SignUpView";
 import { Breadcrumbs } from "./BreadCrumbs";
 import { PhotographerDescription } from "./PhotographerDescription";
 import { OptionalStep } from "./OptionalStep";
+import { checkSignUpForm } from "../../../helper functions/checkSignupForm";
 
 class SignUp extends Component {
   state = {
@@ -34,6 +35,15 @@ class SignUp extends Component {
   };
 
   changeStep = step => {
+    console.log(step);
+    //check for the second step
+    if (
+      step == 2 &&
+      !checkSignUpForm({ type: this.props.type, ...this.state })
+    ) {
+      return;
+    }
+
     this.setState({ currentStep: step });
   };
 
