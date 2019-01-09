@@ -38,7 +38,7 @@ class SignUp extends Component {
     console.log(step);
     //check for the second step
     if (
-      step == 2 &&
+      step === 2 &&
       !checkSignUpForm({ type: this.props.type, ...this.state })
     ) {
       return;
