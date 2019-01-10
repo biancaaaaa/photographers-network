@@ -25,7 +25,9 @@ const UpcomingJobs = ({match, upcomingJobsCompany, upcomingJobsPhotographer}) =>
   const upcomingJobs = !isCompany ?
     upcomingJobsPhotographer : upcomingJobsCompany;
 
-  const job = upcomingJobs.sort((a, b) => new Date(b.startDate) - new Date(a.startDate))[0];
+  const jobs = upcomingJobs.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+  const job = jobs.filter(job => job.status !== "open")[0];
+  if (!job) return <div className="dashboard-container">No upcoming jobs.</div>;
 
   const contactImg = isCompany ?
     job.photographer.profileImageUrl : job.company.profileImageUrl;

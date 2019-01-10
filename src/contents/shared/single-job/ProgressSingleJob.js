@@ -46,7 +46,7 @@ class ProgressSingleJob extends React.Component {
     const companySent = receivedBoth ||
       Boolean(allReviews[0] && allReviews[0].authorData.companyName);
     return (
-      <div className="single-job-view section-content">
+      <React.Fragment>
           <JobDescription {...jobDescription} />
           {user.type === "photographer" ? (
             <ProgressSingleJobPhotographer
@@ -68,7 +68,7 @@ class ProgressSingleJob extends React.Component {
               companyReceived={companyReceived}
             />
           )}
-      </div>
+      </React.Fragment>
     );
   }
 }

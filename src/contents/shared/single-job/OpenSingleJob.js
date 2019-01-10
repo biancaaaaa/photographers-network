@@ -29,7 +29,7 @@ class OpenSingleJob extends React.Component {
       return <Redirect to={`/progress-job/${this.props.match.params.jobid}`} />;
 
     return (
-      <div className="single-job-view section-content">
+      <React.Fragment>
         <JobDescription {...jobData} />
         {user.type === "photographer" ? (
           <OpenSingleJobPhotographer
@@ -47,7 +47,7 @@ class OpenSingleJob extends React.Component {
             {...this.props}
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

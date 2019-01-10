@@ -24,7 +24,9 @@ export const createJob = (jobData, sentTo = null, sentToId = null) => {
     return getFirestore()
       .collection("jobOffers")
       .add({
-        startDate: jobData.jobDate,
+        startDate: jobData.jobStartDate,
+        endDate: jobData.jobEndDate,
+        time: jobData.jobTime,
         title: jobData.jobTitle,
         requestedSkill: jobData.jobType,
         location: {

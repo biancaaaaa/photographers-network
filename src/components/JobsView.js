@@ -24,11 +24,11 @@ export const JobsView = ({ jobsList, searchValue, changeHandler, locations, type
 					<JobsList jobsList={jobsList} />
 				</React.Fragment>
 			) : (
-					<h2> NO JOB FOR YoU MAN! </h2>
+					<h2>No jobs found.</h2>
 				)
 		}
 	</div>
-)
+);
 
 
 JobsView.propTypes = {

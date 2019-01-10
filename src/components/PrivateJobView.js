@@ -7,7 +7,6 @@ export const PrivateJobView = ({
   startDate,
   description,
   location,
-  address,
   priceAmount,
   title,
   requestedSkill,
@@ -17,13 +16,14 @@ export const PrivateJobView = ({
   status
 }) => {
   return (
-    <div className="job-view-private">
-      <h2>Job title : {title}</h2>
+    <div className="red-bg">
+      <h2 className="black-bg-header">{title}</h2>
+    <div className="job-view-private dashboard-container white-container">
       <p>Description : {description}</p>
       <h2>Budget : {priceAmount} </h2>
       <h5>Type of photography : {requestedSkill} </h5>
       <p>
-        Location : {location}, {address}
+        Location : {location.city}, {location.country}
       </p>
       <p>Date : {new Date(startDate).toLocaleDateString()} </p>
       <p>
@@ -32,18 +32,19 @@ export const PrivateJobView = ({
       </p>
       <div className="accept-reject-buttons">
         <div
-          className="accpet-button"
+          className="accpet-button gb-btn gb-btn-medium gb-btn-primary gb-btn-white"
           onClick={() => acceptJobReq(jobId, title, companyId)}
         >
           Accept Request
         </div>
         <div
-          className="reject-button"
+          className="reject-button gb-btn gb-btn-medium gb-btn-primary gb-btn-white"
           onClick={() => rejectJobReq(jobId, title, companyId, status)}
         >
           Reject Request
         </div>
       </div>
+    </div>
     </div>
   );
 };

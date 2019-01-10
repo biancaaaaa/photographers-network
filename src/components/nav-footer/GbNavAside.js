@@ -39,6 +39,11 @@ const links = {
       to: "dashboard/payout/photographer",
       txt: "PAY OUT",
       svg: <img src={PayoutPhoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout" />
+    },
+    {
+      to: "all-job-requests",
+      txt: "JOB REQUESTS",
+      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
     }
   ],
   company: [
@@ -58,7 +63,7 @@ const links = {
       svg: <img src={CreateJobURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="create-job"/>
     },
     {
-      to: "jobs",
+      to: "myJobOffers",
       txt: "JOB OFFERTS",
       svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
     },
@@ -76,6 +81,11 @@ const links = {
       to: "dashboard/payout/company",
       txt: "PAY OUT",
       svg: <img src={PayoutComURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout"/>
+    },
+    {
+      to: "all-job-requests",
+      txt: "JOB REQUESTS",
+      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
     }
   ]
 };

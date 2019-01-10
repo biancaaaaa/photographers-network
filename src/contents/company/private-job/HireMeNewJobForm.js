@@ -16,8 +16,7 @@ class HireMeNewJobForm extends React.Component {
     backHandler: PropTypes.func.isRequired,
     company: PropTypes.object.isRequired,
     photographerId: PropTypes.string.isRequired,
-    photographerName: PropTypes.string.isRequired,
-    sendRequestHandler: PropTypes.func.isRequired
+    photographerName: PropTypes.string.isRequired
   };
 
   //Submit the form, create a new

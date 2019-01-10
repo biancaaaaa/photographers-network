@@ -19,8 +19,8 @@ export function checkSignUpForm({
     }
   }
 
-  if (!password || password != password2) {
-    console.log("password does not match");
+  if (!password || password !== password2) {
+    console.log("passwords do not match");
     return false;
   }
 
