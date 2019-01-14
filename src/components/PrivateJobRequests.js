@@ -8,7 +8,6 @@ const PrivateJobRequest = props => {
   const { user, location } = props;
   /* Initial check to see if this is the correct user(photographer) */
   let userQueryId = queryString.parse(location.search).user;
-  console.log(location);
   const correctUser = true; //userQueryId === user.uid;
 
   return correctUser ? (

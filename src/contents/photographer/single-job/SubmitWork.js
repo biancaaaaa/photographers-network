@@ -1,16 +1,16 @@
 // dependencies
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React, {Component} from "react";
+import {Redirect} from "react-router-dom";
 
 // component
 import PhotoUpload from "../../shared/PhotoUpload";
 import WithModal from "../../../RenderProp/WithModal";
-import { Button } from "../../../components/Button";
-import { connect } from "react-redux";
-import { addNewNotification } from "../../../redux/actions/notifications-action";
-import { submitWork } from "../../../redux/actions/single-job-action-photographer";
-import { compose } from "redux";
-import { isLoaded, firestoreConnect } from "react-redux-firebase";
+import {Button} from "../../../components/Button";
+import {connect} from "react-redux";
+import {addNewNotification} from "../../../redux/actions/notifications-action";
+import {submitWork} from "../../../redux/actions/single-job-action-photographer";
+import {compose} from "redux";
+import {isLoaded, firestoreConnect} from "react-redux-firebase";
 import LoadingPage from "../../../components/LoadingPage";
 import {
   removeFromDatabase,
@@ -61,60 +61,64 @@ class SubmitWork extends Component {
     const notification = {
       title: `${profile.firstName} ${
         profile.lastName
-      } submitted his work for "${jobDescription.title}".`,
+        } submitted his work for "${jobDescription.title}".`,
       link: `/progress-job/${jobId}`,
       read: false,
       createdAt: new Date().getTime(),
       recipientUserId: jobDescription.companyId
     };
     this.props.addNotification(notification);
-    this.setState({ submitted: true });
+    this.setState({submitted: true});
   };
 
   render() {
     const {jobId} = this.state;
-    const {auth, jobsData} = this.props;
-    if(!isLoaded(jobsData)) return <LoadingPage/>;
+    const {auth, jobOfferData, jobRequestData} = this.props;
+    if (!isLoaded(jobOfferData) || !isLoaded(jobRequestData)) return <LoadingPage/>;
+    const isOffer = jobOfferData[jobId];
+    const jobsData = isOffer ? jobOfferData : jobRequestData;
+    console.log(jobsData);
+    if (!jobsData[jobId]) return <div>Job not found!</div>;
     const images = Object.values(jobsData[jobId].submittedWork || {});
     return (
-        <div className="section-content with-padding">
-          {!this.state.submitted ?
-            <React.Fragment>
-              Submit your work here!
-              <WithModal className="portofolio-add" closeItemClass="close">
-                {({showModal, closeModalListener}) => (
-                  <PhotoUpload
-                    collection={'jobOffers'}
-                    doc={jobId}
-                    databaseRef={`photographer/${auth.uid}/applied-jobs/${jobId}/submitted-work`}
-                    storageRef={`${auth.uid}/submitted-works/${jobId}`}
-                    closeModalListener={closeModalListener}
-                    showModal={showModal}
-                    descriptionField={false}
-                    callback={this.forceUpdate.bind(this)}
-                  />
-                )}
-              </WithModal>
+      <div className="section-content with-padding">
+        {!this.state.submitted ?
+          <React.Fragment>
+            Submit your work here!
+            <WithModal className="portofolio-add" closeItemClass="close">
+              {({showModal, closeModalListener}) => (
+                <PhotoUpload
+                  collection={isOffer ? 'jobOffers' : 'jobRequests'}
+                  doc={jobId}
+                  databaseRef={`photographer/${auth.uid}/applied-jobs/${jobId}/submitted-work`}
+                  storageRef={`${auth.uid}/submitted-works/${jobId}`}
+                  closeModalListener={closeModalListener}
+                  showModal={showModal}
+                  descriptionField={false}
+                  callback={this.forceUpdate.bind(this)}
+                />
+              )}
+            </WithModal>
 
-              <div className="image-container">
-                {
-                  images.map((img, key) =>
-                    <div className="single-image-container" key={img.id}>
-                      <img src={img.url} alt={img.id}/>
-                      <div className="img-hover" onClick={() => this.removeImage(img.id)}>REMOVE</div>
-                    </div>
-                  )
-                }
-                {
-                  images.length > 0 &&
-                  <Button classes="gb-btn gb-btn-medium gb-btn-primary" clickHandler={this.submit}>Submit to
-                    company</Button>
-                }
-              </div>
-            </React.Fragment> :
-            <Redirect to={`/progress-job/${jobId}`}/>
-          }
-        </div>
+            <div className="image-container">
+              {
+                images.map((img, key) =>
+                  <div className="single-image-container" key={img.id}>
+                    <img src={img.url} alt={img.id}/>
+                    <div className="img-hover" onClick={() => this.removeImage(img.id)}>REMOVE</div>
+                  </div>
+                )
+              }
+              {
+                images.length > 0 &&
+                <Button classes="gb-btn gb-btn-medium gb-btn-primary" clickHandler={this.submit}>Submit to
+                  company</Button>
+              }
+            </div>
+          </React.Fragment> :
+          <Redirect to={`/progress-job/${jobId}`}/>
+        }
+      </div>
     );
   }
 }
@@ -122,7 +126,8 @@ class SubmitWork extends Component {
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
   profile: state.firebase.profile,
-  jobsData: state.firestore.data.jobOffers
+  jobOfferData: state.firestore.data.jobOffers,
+  jobRequestData: state.firestore.data.jobRequests
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -137,6 +142,10 @@ export default compose(
   firestoreConnect(props => [
       {
         collection: "jobOffers",
+        doc: props.match.params.jobid
+      },
+      {
+        collection: 'jobRequests',
         doc: props.match.params.jobid
       }
     ]

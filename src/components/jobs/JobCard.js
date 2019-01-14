@@ -4,11 +4,11 @@ import {Avatar} from "../Avatar";
 
 const options = {year: 'numeric', month: 'long', day: 'numeric'};
 
-export const JobCard = ({id, status, title, location, startDate, description, priceAmount, insuranceAmount, company, moreLink, editBtn, applyBtn, sentTo, showPhotographer, showCompany}) => {
+export const JobCard = ({id, status, title, location, startDate, description, priceAmount, insuranceAmount, company, moreLink, editBtn, applyBtn, photographer, showPhotographer, showCompany}) => {
   let link = '';
-  if (status === 'private') link = `/private/job/${id}`;
+  if (status === 'progress') link = `/progress-job/${id}`;
   else if (status === 'open') link = `/open-job/${id}`;
-  else link = `/progress-job/${id}`;
+  else link = `/private/job/${id}`;
   return (
     <li key={id}>
       <div className="information-container">
@@ -40,10 +40,10 @@ export const JobCard = ({id, status, title, location, startDate, description, pr
         {
           (showPhotographer || showCompany) &&
           <div className="gb-display-flex user-info">
-            <Avatar userImageUrl={showPhotographer ? sentTo.profileImageUrl : company.profileImageUrl}/>
+            <Avatar userImageUrl={showPhotographer ? photographer.profileImageUrl : company.profileImageUrl}/>
             <div className="user-info-desc">
               <h2 className="uppercase">{showPhotographer ? 'Photographer' : 'Company'}</h2>
-              <p className="bold-info">{showPhotographer ? `${sentTo.firstName} ${sentTo.lastName}` : company.companyName}</p>
+              <p className="bold-info">{showPhotographer ? `${photographer.firstName} ${photographer.lastName}` : company.companyName}</p>
             </div>
           </div>
         }

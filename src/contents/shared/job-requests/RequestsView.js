@@ -5,13 +5,13 @@ import {isLoaded, firestoreConnect} from "react-redux-firebase";
 import {JobCard} from "../../../components/jobs/JobCard";
 import LoadingPage from "../../../components/LoadingPage";
 
-const ApprovedRequests = ({ jobs, profile, auth }) => {
+const RequestsView = ({ jobs, profile, auth, type }) => {
   if (!isLoaded(jobs)) return <LoadingPage/>;
   // filter jobs to return only job requests
-  let jobRequests = jobs.filter(job => job.sentTo && job.sentTo !== null);
   // filter jobs to return only requests for company or photographer
-  jobRequests = jobRequests.filter(job => profile.type === 'company' ?
-    job.companyId === auth.uid : job.sentToId === auth.uid);
+  let jobRequests = jobs.filter(job => profile.type === 'company' ?
+    job.company.uid === auth.uid : job.photographer.uid === auth.uid);
+  jobRequests = jobRequests.filter(job => job.status === type);
   return (
     <ul className="paymentList white-container dashboard-container">
       {
@@ -29,17 +29,28 @@ const ApprovedRequests = ({ jobs, profile, auth }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  jobs: state.firestore.ordered.jobOffers,
-  profile: state.firebase.profile,
-  auth: state.firebase.auth
-});
+const mapStateToProps = state => {
+  const type = state.firebase.profile.type;
+  const store =  state.firestore.ordered;
+  return ({
+    jobs: type === 'company' ? store.companyRequests : store.photographerRequests,
+    profile: state.firebase.profile,
+    auth: state.firebase.auth
+  });
+};
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
+  firestoreConnect(props => [
     {
-      collection: "jobOffers"
+      collection: "jobRequests",
+      where: ['company.uid', '==', props.auth.uid],
+      storeAs: 'companyRequests'
+    },
+    {
+      collection: 'jobRequests',
+      where: ['photographer.uid', '==', props.auth.uid],
+      storeAs: 'photographerRequests'
     }
   ])
-)(ApprovedRequests);
+)(RequestsView);

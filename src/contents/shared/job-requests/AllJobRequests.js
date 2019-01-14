@@ -2,7 +2,7 @@ import React from "react";
 import {DashboardHeader} from "../../../components/dashboard/DashboardHeader";
 import {Route, Redirect} from "react-router-dom";
 
-import ApprovedRequests from "./ApprovedRequests";
+import RequestsView from "./RequestsView";
 
 class AllJobRequests extends React.Component {
   state = {
@@ -27,9 +27,9 @@ class AllJobRequests extends React.Component {
       <React.Fragment>
         <DashboardHeader links={this.state.links}/>
         <Route exact path="/all-job-requests" render={props => <Redirect to={`/all-job-requests/approved`}/>}/>
-        <Route exact path="/all-job-requests/approved" render={props => <ApprovedRequests {...props}/>}/>
-        <Route exact path="/all-job-requests/pending" render={props => <ApprovedRequests {...props}/>}/>
-        <Route exact path="/all-job-requests/rejected" render={props => <ApprovedRequests {...props}/>}/>
+        <Route exact path="/all-job-requests/approved" render={props => <RequestsView type="approved" {...props}/>}/>
+        <Route exact path="/all-job-requests/pending" render={props => <RequestsView type="pending" {...props}/>}/>
+        <Route exact path="/all-job-requests/rejected" render={props => <RequestsView type="rejected" {...props}/>}/>
       </React.Fragment>
     );
   }

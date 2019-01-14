@@ -47,6 +47,7 @@ class HireMeNewJobForm extends React.Component {
         }, 1000);
       })
       .catch(err => {
+        console.log(err);
         this.setState({
           loading: false,
           error: err,

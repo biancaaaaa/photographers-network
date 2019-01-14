@@ -45,7 +45,8 @@ export default class CreateJobForm extends React.Component {
     countries: [],
     jobInsurance: false,
     jobInsuranceAmount: '',
-    jobInsuranceDue: ''
+    jobInsuranceDue: '',
+    requestAmount: ''
   };
 
   componentDidMount() {

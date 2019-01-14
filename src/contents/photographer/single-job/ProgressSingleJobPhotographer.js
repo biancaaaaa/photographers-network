@@ -16,7 +16,7 @@ class ProgressSingleJobPhotographer extends React.Component {
     } = this.props;
 
     return (
-      submittedWork.length > 0 && jobDescription.deliveryStatus ?
+      (submittedWork && submittedWork.length > 0) && jobDescription.deliveryStatus ?
         (
           acceptedWork ?
             <React.Fragment>

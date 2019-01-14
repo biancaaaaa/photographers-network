@@ -42,13 +42,12 @@ const UpcomingJobs = ({match, upcomingJobsCompany, upcomingJobsPhotographer}) =>
         </div>
         <div className="col">
           <img src={timelineIconURL} alt="timeline-icon" className="icon"/>
-          <h1>{formatTime(date)}</h1>
+          <h1>{job.time || formatTime(date)}</h1>
         </div>
         <div className="col">
           <img src={locationIconURL} alt="location-icon" className="icon"/>
           <h3>{job.location.city}</h3>
-          <p className="small-grey-bold">{job.location.streetName}{job.location.streetNumber || ''}, <br/>133
-            36 {job.location.city}</p>
+          <p className="small-grey-bold">{job.location.streetName} {job.location.streetNumber || ''}, <br/>{job.location.postalCode || '1'} {job.location.city}</p>
         </div>
       </div>
       <div className="light-grey-box">
