@@ -4,7 +4,7 @@ import { compose } from "redux";
 import { isLoaded, isEmpty, firestoreConnect } from "react-redux-firebase";
 import { sendPrivateRequestFromExistingJobs } from "../../../redux/actions/company-actions";
 
-import { AvailableJobsToSendList } from "../../../components/AvailableJobsToSendList";
+import { AvailableJobsToSendList } from "../../../components/private-job/AvailableJobsToSendList";
 
 class HireMeExistingJobOffer extends React.Component {
   state = {

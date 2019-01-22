@@ -1,18 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "../Button";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-import AvatarInput from "../../contents/shared/profile/AvatarInput";
 
 export const DashboardHeader = ({
-  children,
-  links,
-  linkHandler,
-  type,
-  profile,
-  auth
+  links
 }) => {
-  let profilePath = `/profile/${auth.uid}`;
   return (
     <div>
       <div className="gb-card-7-wrapper">
@@ -20,30 +12,21 @@ export const DashboardHeader = ({
           style={{ flexDirection: "column" }}
           className="gb-card-7-height gb-background-primary"
         >
-          <AvatarInput uid={auth.uid} userAvatar={profile.profileImageUrl} />
           <div className="card-7-shadow-overlay" />
-          <div className="card-7-content">
-            <h1 className="gb-title-xx-large gb-text-white gb-margin-bottom-40 gb-text-align-center">
-              {children}
-            </h1>
-            <div className="gb-display-flex">
+          <div className="card-7-content full-width">
+            <div className="gb-overflow-x-scroll">
               {links.map((link, key) => {
                 return (
-                  <Button
+                  <NavLink
                     key={key}
-                    clickHandler={() => linkHandler(link.name, type)}
-                    classes="gb-btn gb-btn-small gb-btn-outlined gb-margin-right-16"
+                    to={link.link}
+                    className="gb-btn gb-btn-small black-nav gb-margin-right-16"
+                    activeClassName="gb-btn-outlined"
                   >
                     {link.name}
-                  </Button>
+                  </NavLink>
                 );
               })}
-              <Link
-                to={profilePath}
-                className="gb-btn gb-btn-small gb-btn-outlined gb-margin-right-16"
-              >
-                Profile
-              </Link>
             </div>
           </div>
         </div>

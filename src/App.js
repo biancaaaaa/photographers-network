@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ReactGA from "react-ga";
 
 import "./style/gb-style.css";
 import "./style/photographer-style.css";
 import Routes from "./routes";
 
+function initializeReactGA() {
+  ReactGA.initialize("UA-130910738-1");
+}
+
 class App extends Component {
+  componentDidMount() {
+    initializeReactGA();
+  }
   render() {
     const { auth, profile } = this.props;
     if (profile.isLoaded) {

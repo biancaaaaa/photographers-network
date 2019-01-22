@@ -10,6 +10,8 @@ export const InputField = ({
   placeholder,
   min,
   max,
+  onFocus,
+  onBlur
 }) => {
   return (
     <div className='inputWrapper'>
@@ -24,6 +26,8 @@ export const InputField = ({
           placeholder={placeholder}
           min={min}
           max={max}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </label>
     </div>

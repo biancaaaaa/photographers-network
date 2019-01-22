@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Photographer tests renders correctly with one photographer passed renders right content of photographer 1`] = `
+<li
+  className="user-li-card"
+>
+  <div
+    className="gb-display-flex"
+  >
+    <a
+      className="profile-link"
+      href="#"
+    >
+      <img
+        alt="avatar"
+        className="gb-avatar gb-avatar-medium"
+        src="e.jpg"
+      />
+    </a>
+    <div>
+      <h1
+        className="uppercase"
+      >
+        S
+         
+        S
+      </h1>
+      <h4
+        className="small-heading"
+      >
+        S
+      </h4>
+    </div>
+  </div>
+  <p
+    className="description"
+  />
+  <a
+    className="gb-btn gb-btn-small gb-btn-primary gb-btn-white pink-border"
+    href="/profile/zzz"
+    onClick={[Function]}
+  >
+    Profile
+  </a>
+</li>
+`;

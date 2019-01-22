@@ -24,7 +24,7 @@ export const AvailableJobsToSendList = ({
             <div className="job-infos">
               <h2 className="openjobtitle">{el.title}</h2>
               <p className="openjobtitle">{el.descrition}</p>
-              <p className="openjoblocation">{el.location}</p>
+              <p className="openjoblocation">{el.location.city}</p>
               <p className="openjobprice">{el.priceAmount}£</p>
             </div>
             <div onClick={() => sendRequestHandler(el)} className="sendoffer">

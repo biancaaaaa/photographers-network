@@ -94,7 +94,7 @@ class ProgressSingleJobCompany extends React.Component {
   };
 
   render() {
-    const {acceptedApplicant, submittedWork, jobDescription} = this.props;
+    const {acceptedApplicant, submittedWork, jobDescription, jobId, companySent, companyReceived} = this.props;
 
     return (
       <React.Fragment>
@@ -105,10 +105,12 @@ class ProgressSingleJobCompany extends React.Component {
           acceptedWork={jobDescription.status === "closed"}
           acceptWorkHandler={this.acceptWork}
           downloadHandler={this.downloadWork}
+          jobId={jobId}
+          companySent={companySent}
+          companyReceived={companyReceived}
         />
         <button className="gb-btn gb-btn-medium gb-btn-primary" onClick={this.generatePDF}>Download invoice</button>
       </React.Fragment>
-
     );
   }
 }

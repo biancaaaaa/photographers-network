@@ -34,21 +34,24 @@ class SearchPhotographers extends Component {
     if (searchedValue) {
       photographers = photographers.filter(el => {
         const regExp = new RegExp(`^${searchedValue}`, "i");
-        return regExp.test(el.location);
+        return regExp.test(Object.values(el.locations)[0].city) ||
+          regExp.test(el.firstName) ||
+          regExp.test(el.lastName);
       });
     }
 
     return (
       <React.Fragment>
-        <div className="search-photographer section-content normalized">
-          <h1 className="gb-title-medium">Search for a photographer in</h1>
-          <SearchInput
-            name="searchedValue"
-            value={this.state.searchedValue}
-            placeholder="Type in a city/location..."
-            changeHandler={this.handleChange}
-            searchHandler={this.search}
-          />
+        <div className="red-bg">
+          <div className="black-bg-header">
+            <SearchInput
+              name="searchedValue"
+              value={this.state.searchedValue}
+              placeholder="Search photographer"
+              changeHandler={this.handleChange}
+              searchHandler={this.search}
+            />
+          </div>
           <PhotographersList list={photographers} />
         </div>
       </React.Fragment>

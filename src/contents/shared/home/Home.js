@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { GbCard50Skewed } from "../../../components/gbCard50Skewed";
-import { SearchSVG } from "../../../components/svg/SearchSVG";
-import { DoneSVG } from "../../../components/svg/DoneSVG";
-import { CardSVG } from "../../../components/svg/CardSVG";
+import Home50hCard from "../../../components/Home50hCard";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { TextTopGalleryBottomSection } from "../../../components/home/TextTopGalleryBottomSection";
+import { PartenersList } from "../../../components/PartenersList";
+import { ReviewBox } from "../../../components/profile/ReviewBox";
+import GallerySlider from "../../../components/GallerySlider";
 
 const mapStateToProps = state => ({
   auth: state.firebase.auth
 });
 
-/* rightLinks = [{txt : 'home' , link : '#'}] loggedIn={true/false} userImageUrl='link' profileLink='#' */
 class Home extends Component {
   state = {
     showModal: false
@@ -27,67 +27,37 @@ class Home extends Component {
     return (
       <div className="home-page">
         <div className="header">
-          <GbCard50Skewed
+          <Home50hCard
             backgroundUrl="https://images.unsplash.com/photo-1516807947649-1054add6bc97?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=11be05062d1f7ba80ca7d217e0aa241f&auto=format&fit=crop&w=1049&q=80"
-            type="Photographers"
-            aboutType="Find the job that suits you and get the job done."
-            modalHandler={this.showThisModal}
-            showModal={this.state.showModal === "photographers"}
-            modalLink="signUp/photographer"
-            modalButtonValue="Join Now"
-            modalList={[
-              {
-                description:
-                  "Search for the best jobs oportunities in your area of interests.",
-                icon: (
-                  <SearchSVG classes="modal-icon gb-icon-fill-white gb-icon-medium" />
-                )
-              },
-              {
-                description: "Apply for the jobs that you are interested in.",
-                icon: (
-                  <DoneSVG classes="modal-icon gb-icon-fill-white gb-icon-medium" />
-                )
-              },
-              {
-                description: "Do the job, get the money fast and secured.",
-                icon: (
-                  <CardSVG classes="modal-icon gb-icon-fill-white gb-icon-medium" />
-                )
-              }
-            ]}
+            paragraphContent="Find the job that suits you and get the job done."
+            titleContent="Photographer"
+            type="photographer"
           />
-          <GbCard50Skewed
+          <Home50hCard
             backgroundUrl="https://images.unsplash.com/photo-1523871762770-87bda6d9ab58?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=651c083bb21d6ff0ef6eaa4136cbef56&auto=format&fit=crop&w=1185&q=80"
-            type="Companies"
-            aboutType="Find the photographer that suits you and get the job done"
-            modalHandler={this.showThisModal}
-            showModal={this.state.showModal === "companies"}
-            modalLink="signUp/company"
-            modalButtonValue="Get Started"
-            modalList={[
-              {
-                description:
-                  "Search for the best photographer in your area, or post a public job.",
-                icon: (
-                  <SearchSVG classes="modal-icon gb-icon-fill-white gb-icon-medium" />
-                )
-              },
-              {
-                description: "Sign the contract with the chosen photographer.",
-                icon: (
-                  <DoneSVG classes="modal-icon gb-icon-fill-white gb-icon-medium" />
-                )
-              },
-              {
-                description: "After the job is done, pay fast and secured.",
-                icon: (
-                  <CardSVG classes="modal-icon gb-icon-fill-white gb-icon-medium" />
-                )
-              }
-            ]}
+            paragraphContent="Find the Photographer that suits you and get the job done."
+            titleContent="Company"
+            type="company"
           />
         </div>
+        <TextTopGalleryBottomSection
+          header="How to section"
+          paragraph="Explanations on how to hire a photographer, and better selectionmethods : define the needs"
+        >
+          <GallerySlider />
+        </TextTopGalleryBottomSection>
+        <TextTopGalleryBottomSection
+          header="Our parteners"
+          paragraph="Together with our parteners, Globuzzer caters to the needs of travelers, students and expats needs"
+        >
+          <PartenersList />
+        </TextTopGalleryBottomSection>
+        <ReviewBox
+          title="LAST REVIEW"
+          userImageURL="https://images.unsplash.com/photo-1535930749574-1399327ce78f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+          quote="New battery for smartphones can be charged in a minute"
+          name="John Doe"
+        />
       </div>
     );
   }

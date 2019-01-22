@@ -36,8 +36,9 @@ class SignIn extends Component {
     const { loadingAuth, errorAuth, succesAuth } = this.props;
 
     return (
-      <div>
-        <div className="section-content with-padding">
+      <React.Fragment>
+        <div className="section-content with-padding signin-page-wrapper">
+          <div className="fade-black-overlay" />
           <form onSubmit={this.signIn}>
             <h1>Sign in</h1>
             <InputField
@@ -68,7 +69,7 @@ class SignIn extends Component {
                   type="submit"
                   disabled={true}
                   style={{ opacity: 0.5 }}
-                  className="gb-btn gb-btn-large gb-btn-primary"
+                  className="gb-btn gb-btn-transparent"
                   value="Loading..."
                 />
               ) : succesAuth ? (
@@ -76,13 +77,13 @@ class SignIn extends Component {
                   type="submit"
                   disabled={true}
                   style={{ opacity: 1 }}
-                  className="gb-btn gb-btn-large gb-btn-primary"
-                  value="Succes"
+                  className="gb-btn gb-btn-transparent"
+                  value="Success"
                 />
               ) : (
                 <input
                   type="submit"
-                  className="gb-btn gb-btn-large gb-btn-primary"
+                  className="gb-btn gb-btn-transparent"
                   value="Sign in"
                 />
               )}
@@ -90,7 +91,7 @@ class SignIn extends Component {
             {errorAuth && <Error message="Auth failed!" />}
           </form>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

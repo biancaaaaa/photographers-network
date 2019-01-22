@@ -6,13 +6,14 @@ export const HireButton = ({
   uid,
   photographerName,
   siggnedInUser,
-  photographerData
+  photographerData,
+  classes
 }) => (
   <WithModal closeItemClass="close">
     {({ showModal, closeModalListener }) => (
       <React.Fragment>
-        <div className="hire-button">
-          <h5>Hire me!</h5>
+        <div className={classes}>
+          <h5>Hire me</h5>
         </div>
         {showModal && (
           <HireMeModal

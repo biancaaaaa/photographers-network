@@ -1,21 +1,19 @@
 import React from "react";
-import { PropTypes } from "prop-types";
-import { SmallLogoSVG } from "../svg/SmallLogoSVG";
-import { LinkLists } from "../LinkLists";
 import { Link } from "react-router-dom";
-import { RightUserOn } from "./RightUserOn";
 import { connect } from "react-redux";
 import { signOutUser } from "../../redux/actions/user-action";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
+import mainLogo from "../../logo.png";
+import { BurgerMenuSVG } from "../../components/svg/BurgerMenuSVG";
+import { GbNavRight } from "./gbNavRight";
+import { GbNavAside } from "./GbNavAside";
 
-class GbNavBar extends React.Component {
+export class GbNavBar extends React.Component {
   state = {
     sticky: false,
     showNotificationBox: false,
-    links: [{ txt: "Sign in", link: "signIn" }],
-    homeLink: "home",
-    userLinks: []
+    navExpanded: false
   };
 
   componentDidMount() {
@@ -32,91 +30,59 @@ class GbNavBar extends React.Component {
     });
   };
 
-  showNotificationsHandler = () => {
-    this.setState(prev => {
-      return {
-        showNotificationBox: !prev.showNotificationBox
-      };
-    });
+  //Handle the transition of the navAside
+  expandHandler = () => {
+    const translated = this.state.navExpanded;
+    const toBeTranslated = document.querySelector(".gb-app-wrapper");
+    const body = document.querySelector("body");
+
+    //Set the translated class to the page-wrapper as well, stop the scroll on body
+    if (translated) {
+      toBeTranslated.classList.remove("translated");
+      body.style.overflowY = "visible";
+    } else {
+      toBeTranslated.classList.add("translated");
+      body.style.overflowY = "hidden";
+    }
+
+    this.setState(prevState => ({
+      navExpanded: !prevState.navExpanded
+    }));
   };
 
   render() {
-    const { userData: user, signOutUser, auth, profile } = this.props;
-
-    let righLinks = [{ txt: "Sign in", link: "signIn" }];
+    const { profile, signOutUser } = this.props;
+    const { navExpanded } = this.state;
     let homeLink = "home";
-    let userLinks;
-
-    if (auth.uid) {
-      righLinks = [];
-      homeLink = "dashboard";
-
-      const company = profile.type === "company";
-
-      let specificLinks = [
-        {
-          txt: company ? "Create job" : "Jobs",
-          link: company ? "createJob" : "jobs"
-        }
-      ];
-
-      if (company) {
-        specificLinks.push({
-          txt: "Search for photographers",
-          link: "search-photographers"
-        });
-      }
-
-      userLinks = [
-        {
-          txt: "Profile",
-          link: `profile/${auth.uid}`
-        },
-        {
-          txt: "Dashboard",
-          link: "dashboard"
-        },
-        {
-          txt: "Edit profile",
-          link: "ProfileEdit"
-        },
-        {
-          txt: "Payouts",
-          link: `payouts/${profile.type}`
-        },
-        ...specificLinks,
-        { txt: "Sign out", clickHandler: signOutUser }
-      ];
-    }
-
-    const { showNotificationBox } = this.state;
     return (
-      <div className={`gb-navbar ${this.state.sticky ? "sticky" : ""}`}>
-        <Link to={`/${homeLink}`} className="left-content">
-          <SmallLogoSVG classes="gb-icon-medium gb-icon-fill-white" />
-        </Link>
-        <ul className="right-content">
-          <LinkLists
-            links={righLinks}
-            txtClasses="gb-text-white gb-paragraph-medium"
-          />
-          {profile.type === "admin" &&
-          <LinkLists
-            links={[{ txt: "Sign out", clickHandler: signOutUser}]}
-            txtClasses="gb-text-white gb-paragraph-medium"
-          />}
-          {auth.uid && profile.type !== "admin" && (
-            <RightUserOn
-              showNotificationsHandler={this.showNotificationsHandler}
-              newNotifications={this.props.newNotifications}
-              showNotificationBox={showNotificationBox}
-              user={user}
-              userImageUrl={profile.profileImageUrl}
-              userLinks={userLinks}
+      <React.Fragment>
+        <GbNavAside
+          expanded={navExpanded}
+          user={profile}
+          signOutUser={signOutUser}
+          expandHandler={this.expandHandler}
+        />
+        {navExpanded && (
+          <div onClick={this.expandHandler} className="gb-app-black-overlay" />
+        )}
+        <div
+          className={`gb-navbar ${navExpanded ? "translated" : ""} ${
+            this.state.sticky ? "sticky dark-blue" : ""
+          }`}
+        >
+          <div onClick={this.expandHandler} style={{ zIndex: 10 }}>
+            <BurgerMenuSVG classes="gb-pointer gb-icon gb-icon-white gb-icon-medium" />
+          </div>
+          <Link to={`/${homeLink}`} className="center-content">
+            <img
+              src={mainLogo}
+              alt="logo"
+              className="gb-icon-30 gb-icon-fill-white"
             />
-          )}
-        </ul>
-      </div>
+          </Link>
+          <GbNavRight user={profile} />
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -145,7 +111,6 @@ export default compose(
     return [
       {
         collection: "notifications",
-        //orderBy: ['createdAt', 'desc'],
         where: [
           ["recipientUserId", "==", props.auth.uid],
           ["read", "==", false]
@@ -156,8 +121,72 @@ export default compose(
   })
 )(GbNavBar);
 
-GbNavBar.propTypes = {
-  righLinks: PropTypes.arrayOf(PropTypes.object),
-  userImageUrl: PropTypes.string,
-  profileLink: PropTypes.string
-};
+/*
+  showNotificationsHandler = () => {
+    this.setState(prev => {
+      return {
+        showNotificationBox: !prev.showNotificationBox
+      };
+    });
+  };
+ <ul className="right-content">
+   <LinkLists
+     links={righLinks}
+     txtClasses="gb-text-white gb-paragraph-medium"
+   />
+   {auth.uid && (
+     <RightUserOn
+       showNotificationsHandler={this.showNotificationsHandler}
+       newNotifications={this.props.newNotifications}
+       showNotificationBox={showNotificationBox}
+       user={user}
+       userImageUrl={profile.profileImageUrl}
+       userLinks={userLinks}
+     />
+   )}
+ </ul>
+*/
+
+/*
+if (auth.uid) {
+     righLinks = [];
+     homeLink = "dashboard";
+
+     const company = profile.type === "company";
+
+     let specificLinks = [
+       {
+         txt: company ? "Create job" : "Jobs",
+         link: company ? "createJob" : "jobs"
+       }
+     ];
+
+     if (company) {
+       specificLinks.push({
+         txt: "Search for photographers",
+         link: "search-photographers"
+       });
+     }
+
+     userLinks = [
+       {
+         txt: "Profile",
+         link: `profile/${auth.uid}`
+       },
+       {
+         txt: "Dashboard",
+         link: "dashboard"
+       },
+       {
+         txt: "Edit profile",
+         link: "ProfileEdit"
+       },
+       {
+         txt: "Payouts",
+         link: `payouts/${profile.type}`
+       },
+       ...specificLinks,
+       { txt: "Sign out", clickHandler: signOutUser }
+     ];
+   }
+   */

@@ -35,7 +35,6 @@ class AvatarInput extends React.Component {
         this.props
           .updatePhotoURL(file, userId)
           .then(() => {
-            console.log("photo changed succesfully!");
             this.setState({ disabled: false });
           })
           .catch(err => {

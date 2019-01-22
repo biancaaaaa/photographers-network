@@ -2,8 +2,7 @@ import React from "react";
 import {
   GoogleMap,
   Marker,
-  withGoogleMap,
-  withScriptjs
+  withGoogleMap
 } from "react-google-maps";
 
 const MyMapComp = withGoogleMap(props => (

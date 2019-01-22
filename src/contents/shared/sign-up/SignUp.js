@@ -4,18 +4,24 @@ import { sigUpUser } from "../../../redux/actions/user-action";
 import { actionReset } from "../../../redux/actions/generalLoadingErrorSucces-actions";
 
 import { SingUpView } from "../../../components/SignUpView";
+import { Breadcrumbs } from "./BreadCrumbs";
+import { PhotographerDescription } from "./PhotographerDescription";
+import { OptionalStep } from "./OptionalStep";
+import { checkSignUpForm } from "../../../helper functions/checkSignupForm";
 
 class SignUp extends Component {
   state = {
+    currentStep: 0,
     firstName: "",
     lastName: "",
     companyName: "",
     email: "",
     password: "",
     password2: "",
-    type: this.props.match.params.type || "photographer",
     locationPlaceholder: "",
-    detailedAddress: {}
+    detailedAddress: {},
+    photographerType: "",
+    showCustomSelect: false
   };
 
   /**
@@ -28,12 +34,22 @@ class SignUp extends Component {
     });
   };
 
+  changeStep = step => {
+    console.log(step);
+    //check for the second step
+    if (
+      step === 2 &&
+      !checkSignUpForm({ type: this.props.type, ...this.state })
+    ) {
+      return;
+    }
+
+    this.setState({ currentStep: step });
+  };
+
   optionSelectHandler = type => {
     this.setState({
-      type: type,
-      firstName: "",
-      lastName: "",
-      companyName: ""
+      photographerType: type
     });
   };
 
@@ -67,17 +83,71 @@ class SignUp extends Component {
   }
 
   render() {
+    const {
+      currentStep,
+      locationPlaceholder,
+      showCustomSelect,
+      photographerType
+    } = this.state;
+    const { loadingDB, type, successDB, errorDB, closeHandler } = this.props;
+
+    let component = <div />;
+    switch (currentStep) {
+      case 0:
+        component =
+          type === "photographer" ? (
+            <PhotographerDescription changeHandler={this.changeStep} />
+          ) : (
+            <p>Company Description</p>
+          );
+        break;
+      case 1:
+        component = (
+          <SingUpView
+            stepHandler={this.changeStep}
+            changeHandler={this.handleChange}
+            type={type}
+            {...this.state}
+          />
+        );
+        break;
+      case 2:
+        component = (
+          <OptionalStep
+            locationPlaceholder={locationPlaceholder}
+            type={type}
+            photographerType={photographerType}
+            showCustomSelect={showCustomSelect}
+            showCustomSelectHandler={this.showCustomSelectHandler}
+            optionSelectHandler={this.optionSelectHandler}
+            loadingDB={loadingDB}
+            successDB={successDB}
+            handleChange={this.handleChange}
+          />
+        );
+        break;
+      default:
+        component = <p>No fitting component!</p>;
+        break;
+    }
     return (
-      <SingUpView
-        signupHandler={this.signup}
-        changeHandler={this.handleChange}
-        showCustomSelectHandler={this.showCustomSelectHandler}
-        optionSelectHandler={this.optionSelectHandler}
-        {...this.state}
-        loadingDB={this.props.loadingDB}
-        errorDB={this.props.errorDB}
-        succesDB={this.props.succesDB}
-      />
+      <React.Fragment>
+        <div className="black-content-section">
+          <Breadcrumbs
+            crumbsAmount={3}
+            activeCrumb={currentStep}
+            clickHandler={this.changeStep}
+          />
+          <div className="selected-content">
+            <form onSubmit={this.signup}>{component}</form>
+            <p className="terms">Terms & Conditions</p>
+            {errorDB && <div className="error-message">{errorDB.message}</div>}
+          </div>
+          <div onClick={closeHandler} className="round-close-btn">
+            +
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -86,7 +156,7 @@ const mapStateToProps = state => ({
   auth: state.firebase.auth,
   loadingDB: state.generalLoadingErrorSucces.loading,
   errorDB: state.generalLoadingErrorSucces.error,
-  succesDB: state.generalLoadingErrorSucces.succes
+  successDB: state.generalLoadingErrorSucces.succes
 });
 
 const mapDispatchToProps = dispatch => ({

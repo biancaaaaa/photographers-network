@@ -7,19 +7,20 @@ import {
   acceptPrivateJobRequest,
   rejectPrivateJobRequest
 } from "../../../redux/actions/photographer-actions";
+import {setDownPaymentStatus} from "../../../redux/actions/company-actions";
 
 const PrivateJobFunctionality = ({
   ownPrivateJobs,
   match,
   acceptJobReq,
-  rejectJobReq
+  rejectJobReq,
+  setDownPaymentStatus,
+  user
 }) => {
   const jobId = match.params.jobId;
 
   //Still loading for the data to load
   if (!isLoaded(ownPrivateJobs)) {
-    return <h2>Loading...</h2>;
-  } else if (ownPrivateJobs && !isLoaded(ownPrivateJobs[jobId])) {
     return <h2>Loading...</h2>;
   }
 
@@ -42,15 +43,23 @@ const PrivateJobFunctionality = ({
       jobId={jobId}
       acceptJobReq={acceptJobReq}
       rejectJobReq={rejectJobReq}
+      user={user}
+      successfulPaymentHandler={setDownPaymentStatus}
     />
   );
 };
 
-const mapStateToProps = state => ({
-  user: state.firebase.profile,
-  auth: state.firebase.auth,
-  ownPrivateJobs: state.firestore.data.ownPrivateJobs
-});
+const mapStateToProps = state => {
+  const store = state.firestore.data;
+  const type = state.firebase.profile.type;
+  return ({
+    user: state.firebase.profile,
+    auth: state.firebase.auth,
+    ownPrivateJobs: type === 'company' ?
+      store.ownPrivateJobsCompany :
+      store.ownPrivateJobsPhotographer
+  });
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   acceptJobReq: (jobId, title, companyId) =>
@@ -58,7 +67,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   rejectJobReq: (jobId, title, companyId, status) =>
     dispatch(
       rejectPrivateJobRequest(jobId, title, companyId, ownProps.user, status)
-    )
+    ),
+  setDownPaymentStatus: jobId => dispatch(setDownPaymentStatus(jobId))
 });
 
 export default compose(
@@ -68,9 +78,14 @@ export default compose(
   ),
   firestoreConnect(props => [
     {
-      collection: "jobOffers",
-      where: [["sentToId", "==", props.auth.uid]],
-      storeAs: "ownPrivateJobs"
+      collection: "jobRequests",
+      where: [["company.uid", "==", props.auth.uid]],
+      storeAs: "ownPrivateJobsCompany"
+    },
+    {
+      collection: 'jobRequests',
+      where: [['photographer.uid', '==', props.auth.uid]],
+      storeAs: 'ownPrivateJobsPhotographer'
     }
   ])
 )(PrivateJobFunctionality);

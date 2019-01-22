@@ -1,33 +1,40 @@
 import React from "react";
-import { LinkLists } from "../LinkLists";
-import { InstagramSVG } from "../../components/svg/InstagramSVG";
-import { TwitterSVG } from "../../components/svg/TwitterSVG";
-import { FacebookSVG } from "../../components/svg/FacebookSVG";
+import {LinkLists} from "../LinkLists";
+import {InstagramSVG} from "../../components/svg/InstagramSVG";
+import {TwitterSVG} from "../../components/svg/TwitterSVG";
+import {FacebookSVG} from "../../components/svg/FacebookSVG";
+import {GlobuzzerSVG} from "../svg/GlobuzzerSVG";
+import LogoURL from "../../logo.png";
 
-export const GbFooter = ({ links }) => {
+export const GbFooter = ({links}) => {
   const socialMedias = [
     {
       icon: (
-        <InstagramSVG classes="gb-icon-fill-black-opacity-30 gb-icon-small" />
+        <InstagramSVG classes="gb-icon-fill-white gb-icon-small"/>
       ),
       link: "#"
     },
     {
       icon: (
-        <TwitterSVG classes="gb-icon-fill-black-opacity-30 gb-icon-small" />
+        <TwitterSVG classes="gb-icon-fill-white gb-icon-small"/>
       ),
       link: "#"
     },
     {
       icon: (
-        <FacebookSVG classes="gb-icon-fill-black-opacity-30 gb-icon-small" />
+        <FacebookSVG classes="gb-icon-fill-white gb-icon-small"/>
       ),
       link: "#"
     }
   ];
   return (
-    <div className="gb-footer gb-background-black-opacity-5">
+    <div className="gb-footer gb-background-grey">
       <div className="footer-wrapper">
+        <div className="logo-container">
+          <img src={LogoURL} alt="logo"/>
+          <p>Powered by</p>
+          <GlobuzzerSVG classes="gb-icon-fill-white"/>
+        </div>
         <ul className="footer-nav">
           {links && (
             <LinkLists

@@ -1,17 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
-import { createJob } from "../../../redux/actions/company-actions";
+import {connect} from "react-redux";
+import {createJob} from "../../../redux/actions/company-actions";
 
 import LocationSearchInput from "../../shared/MapsAutocomplete";
-import { CustomSelect } from "../../../components/CustomSelect";
-import { InputField } from "../../../components/form/InputField";
-import { NameInputSVG } from "../../../components/svg/NameInputSVG";
-import { LocationSVG } from "../../../components/svg/LocationSVG";
-import { MoneySVG } from "../../../components/svg/MoneySVG";
-import { CameraSVG } from "../../../components/svg/CameraSVG";
-import { CalendarSVG } from "../../../components/svg/CalendarSVG";
-import { TextArea } from "../../../components/form/TextArea";
-import { Select } from "../../../components/form/Select";
+import {CustomSelect} from "../../../components/form/CustomSelect";
+import {InputField} from "../../../components/form/InputField";
+import {NameInputSVG} from "../../../components/svg/NameInputSVG";
+import {LocationSVG} from "../../../components/svg/LocationSVG";
+import {MoneySVG} from "../../../components/svg/MoneySVG";
+import {CameraSVG} from "../../../components/svg/CameraSVG";
+import {CalendarSVG} from "../../../components/svg/CalendarSVG";
+import {TextArea} from "../../../components/form/TextArea";
+import {Select} from "../../../components/form/Select";
 
 const types = ["nature", "portrait", "dogs", "cats"];
 
@@ -22,7 +22,7 @@ class CreateJob extends React.Component {
     const month = date.getMonth() + 1;
     return `${year}-${month >= 10 ? month : `0${month}`}-${
       day >= 10 ? day : `0${day}`
-    }`;
+      }`;
   };
 
   state = {
@@ -94,7 +94,7 @@ class CreateJob extends React.Component {
           name,
           value
         }));
-        this.setState({ countries: res });
+        this.setState({countries: res});
       });
   };
 
@@ -102,7 +102,7 @@ class CreateJob extends React.Component {
    * Calculates total amount of the job offer.
    */
   calculateAmount = () => {
-    let { jobBudget, jobCountry, serviceFee, countries } = this.state;
+    let {jobBudget, jobCountry, serviceFee, countries} = this.state;
     // converts budget into a number
     jobBudget = Number(jobBudget);
     // calculates the fee
@@ -227,125 +227,127 @@ class CreateJob extends React.Component {
     today = this.createValidDate(today);
 
     return (
-      <div className="create-job-page section-content with-padding">
+      <div>
         <h1>Create Job</h1>
-        <form onSubmit={this.submitHandler}>
-          <InputField
-            svg={
-              <NameInputSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon" />
-            }
-            value={jobTitle}
-            changeHandler={this.changeHandler}
-            type="text"
-            name="Title"
-            placeholder="Name/Title"
-          />
-          <LocationSearchInput
-            locationPlaceholder={joblocationPlaceholder}
-            changeHandler={this.changeHandler}
-          />
-          <Select
-            value={jobCountry}
-            name="Country"
-            defaultText={"Choose your country"}
-            svg={
-              <LocationSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon" />
-            }
-            changeHandler={this.changeHandler}
-            options={this.state.countries}
-          />
-          <div
-            className="custom-select gb-text-input gb-text-input-trans-background"
-            onClick={this.showCustomSelectHandler}
-          >
-            <CameraSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
-            {jobType}
-            <CustomSelect
-              showCustomSelect={showCustomSelect}
-              optionsList={types}
-              optionSelectHandler={this.optionSelectHandler}
+        <div className="dashboard-container">
+          <form onSubmit={this.submitHandler}>
+            <InputField
+              svg={
+                <NameInputSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon"/>
+              }
+              value={jobTitle}
+              changeHandler={this.changeHandler}
+              type="text"
+              name="Title"
+              placeholder="Name/Title"
             />
-          </div>
-          <InputField
-            svg={
-              <MoneySVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
-            }
-            value={jobBudget}
-            changeHandler={this.changeHandler}
-            type="number"
-            name="Budget"
-            placeholder="Budget"
-            min="10"
-          />
-          {jobBudget !== "" && (
-            <ul>
-              <li>Netto amount: {this.formatNum(jobBudget)} €</li>
-              <li>+ Taxes {jobTaxation}%</li>
-              <li>+ Service fee {serviceFee}%</li>
-              <hr />
-              <li>Total amount: {jobTotalBudget} €</li>
-            </ul>
-          )}
-          <InputField
-            svg={
-              <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
-            }
-            value={jobDate || today}
-            changeHandler={this.changeHandler}
-            type="date"
-            name="Date"
-            min={today}
-          />
-          <label>
-            Insurance payment:
+            <LocationSearchInput
+              locationPlaceholder={joblocationPlaceholder}
+              changeHandler={this.changeHandler}
+            />
+            <Select
+              value={jobCountry}
+              name="Country"
+              defaultText={"Choose your country"}
+              svg={
+                <LocationSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon"/>
+              }
+              changeHandler={this.changeHandler}
+              options={this.state.countries}
+            />
+            <div
+              className="custom-select gb-text-input gb-text-input-trans-background"
+              onClick={this.showCustomSelectHandler}
+            >
+              <CameraSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon"/>
+              {jobType}
+              <CustomSelect
+                showCustomSelect={showCustomSelect}
+                optionsList={types}
+                optionSelectHandler={this.optionSelectHandler}
+              />
+            </div>
+            <InputField
+              svg={
+                <MoneySVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon"/>
+              }
+              value={jobBudget}
+              changeHandler={this.changeHandler}
+              type="number"
+              name="Budget"
+              placeholder="Budget"
+              min="10"
+            />
+            {jobBudget !== "" && (
+              <ul>
+                <li>Netto amount: {this.formatNum(jobBudget)} €</li>
+                <li>+ Taxes {jobTaxation}%</li>
+                <li>+ Service fee {serviceFee}%</li>
+                <hr/>
+                <li>Total amount: {jobTotalBudget} €</li>
+              </ul>
+            )}
+            <InputField
+              svg={
+                <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon"/>
+              }
+              value={jobDate || today}
+              changeHandler={this.changeHandler}
+              type="date"
+              name="Date"
+              min={today}
+            />
+            <label>
+              Insurance payment:
+              <input
+                type="checkbox"
+                name="Insurance"
+                onChange={this.checkBoxChangeHandler}
+                checked={jobInsurance}
+              />
+            </label>
+            {jobInsurance && (
+              <React.Fragment>
+                <InputField
+                  svg={
+                    <MoneySVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon"/>
+                  }
+                  value={jobInsuranceAmount}
+                  changeHandler={this.changeHandler}
+                  type="number"
+                  name="InsuranceAmount"
+                  placeholder="Amount of insurance"
+                  min="10"
+                />
+                <InputField
+                  svg={
+                    <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon"/>
+                  }
+                  value={jobInsuranceDue || today}
+                  changeHandler={this.changeHandler}
+                  type="date"
+                  name="InsuranceDue"
+                  min={today}
+                />
+              </React.Fragment>
+            )}
+            <TextArea
+              svg={
+                <NameInputSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon"/>
+              }
+              value={jobDescription}
+              name="Description"
+              changeHandler={this.changeHandler}
+              placeholder="Job description"
+            />
             <input
-              type="checkbox"
-              name="Insurance"
-              onChange={this.checkBoxChangeHandler}
-              checked={jobInsurance}
+              className="gb-btn gb-btn-large gb-btn-primary"
+              type="submit"
+              value={loading ? "Loading..." : finished ? "Done!" : "Create"}
+              disabled={loading || finished}
             />
-          </label>
-          {jobInsurance && (
-            <React.Fragment>
-              <InputField
-                svg={
-                  <MoneySVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
-                }
-                value={jobInsuranceAmount}
-                changeHandler={this.changeHandler}
-                type="number"
-                name="InsuranceAmount"
-                placeholder="Amount of insurance"
-                min="10"
-              />
-              <InputField
-                svg={
-                  <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
-                }
-                value={jobInsuranceDue || today}
-                changeHandler={this.changeHandler}
-                type="date"
-                name="InsuranceDue"
-                min={today}
-              />
-            </React.Fragment>
-          )}
-          <TextArea
-            svg={
-              <NameInputSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon" />
-            }
-            value={jobDescription}
-            name="Description"
-            changeHandler={this.changeHandler}
-            placeholder="Job description"
-          />
-          <input
-            className="gb-btn gb-btn-large gb-btn-primary"
-            type="submit"
-            value={loading ? "Loading..." : finished ? "Done!" : "Create"}
-            disabled={loading || finished}
-          />
-        </form>
+          </form>
+        </div>
       </div>
     );
   }

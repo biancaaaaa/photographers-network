@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhotographerContent matches the snapshot 1`] = `
+Array [
+  <div
+    className="flex-container-space"
+  >
+    <div>
+      <span
+        className="big-num"
+      >
+        0
+      </span>
+      <span
+        className="light-blue"
+      >
+        Jobs 
+        <br />
+        done
+      </span>
+    </div>
+    <a
+      className="gb-btn gb-btn-small gb-btn-primary gb-btn-white"
+      href="/finished-jobs/zzz"
+      onClick={[Function]}
+    >
+      See the projects
+    </a>
+  </div>,
+  <div
+    className="pink-box"
+  >
+    <p>
+      There, between rolling hills and the Apennine mountains in the Mugello valley.
+    </p>
+    <div
+      onClick={[Function]}
+    >
+      <div
+        className="hire-button"
+      >
+        <h5>
+          Hire me
+        </h5>
+      </div>
+    </div>
+  </div>,
+]
+`;

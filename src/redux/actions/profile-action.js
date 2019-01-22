@@ -16,8 +16,6 @@ import {
  * @param type
  * @param homeAddressId
  * @param userLocations
- * @param iban
- * @param bic
  * @returns {function(*, *, {getFirestore: *})}
  */
 export const updateUserInfo = (firstName,
@@ -26,17 +24,13 @@ export const updateUserInfo = (firstName,
                                companyName,
                                type,
                                homeAddressId,
-                               userLocations,
-                               iban,
-                               bic) => {
+                               userLocations) => {
   return (dispatch, getState, {getFirestore, getFirebase}) => {
     dispatch(actionStarted());
     const firestore = getFirestore();
     const firebase = getFirebase();
 
-    let infoToUpdate = {
-      bankCredentials: {iban, bic}
-    };
+    let infoToUpdate = {};
 
     //if it is company add
     if (type === "company") {
@@ -128,8 +122,21 @@ export const setBankCredentials = bankCredentials => {
         dispatch(actionSuccess(bankCredentials));
       })
       .catch(err => dispatch(actionError(err)));
-    ;
   };
+};
+
+export const setDescription = description => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    return firestore
+      .collection("users")
+      .doc(getState().firebase.auth.uid)
+      .update({description})
+      .then(() => {
+        dispatch(actionSuccess(description));
+      })
+      .catch(err => dispatch(actionError(err)));
+  }
 };
 
 /**

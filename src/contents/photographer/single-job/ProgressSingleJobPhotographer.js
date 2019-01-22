@@ -5,19 +5,34 @@ import {connect} from "react-redux";
 import {setInsurancePaymentStatus} from "../../../redux/actions/single-job-action-photographer";
 
 class ProgressSingleJobPhotographer extends React.Component {
-    render() {
+  render() {
     const {
       submittedWork,
       acceptedWork,
       jobId,
-      jobDescription
+      jobDescription,
+      photographerReceived,
+      receivedBoth
     } = this.props;
 
     return (
-      submittedWork.length > 0 && jobDescription.deliveryStatus ?
+      (submittedWork && submittedWork.length > 0) && jobDescription.deliveryStatus ?
         (
           acceptedWork ?
-            <h2>Your submitted work has been approved. Go to <Link to="/payouts/photographer">payouts</Link> to get your money.</h2> :
+            <React.Fragment>
+              <h2>
+                Your submitted work has been approved. Go to
+                <Link to="/payouts/photographer">payouts</Link> to get
+                your money.
+              </h2>
+              {
+                receivedBoth ?
+                  <p>Both reviews were submitted.</p> :
+                  photographerReceived ?
+                    <p>You received a review. Write yours <Link to={`/review/${jobId}`}>here</Link> to view it.</p> :
+                    <h2>Waiting for review.</h2>
+              }
+            </React.Fragment> :
             <h2>Waiting for company to approve your submitted work.</h2>
         ) :
         (

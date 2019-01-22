@@ -17,9 +17,9 @@ export const ProfileEditView = ({
   iban,
   bic
 }) => (
-  <div className="section-content with-padding">
-    <h2>Edit your profile</h2>
-    <form onSubmit={updateUserHandler}>
+  <div className="red-bg">
+    <h2 className="black-bg-header">Edit your profile</h2>
+    <form onSubmit={updateUserHandler} className="dashboard-container white-container">
       {type === "company" ? (
         <InputField
           svg={
@@ -59,27 +59,7 @@ export const ProfileEditView = ({
         locationPlaceholder={locationPlaceholder}
         changeHandler={changeHandler}
       />
-      <InputField
-        svg={
-          <NameInputSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon" />
-        }
-        value={iban}
-        changeHandler={changeHandler}
-        type="text"
-        name="iban"
-        placeholder="Change your IBAN"
-      />
-      <InputField
-        svg={
-          <NameInputSVG classes="gb-icon gb-icon-medium gb-icon-white inputIcon" />
-        }
-        value={bic}
-        changeHandler={changeHandler}
-        type="text"
-        name="bic"
-        placeholder="Change your BIC"
-      />
-      <p>change photo:</p>
+      <p className="small-bold-centered">change photo:</p>
       <AvatarInput uid={uid} userAvatar={photoURL} name="avatar" />
       <div className="btn-container">
         <input

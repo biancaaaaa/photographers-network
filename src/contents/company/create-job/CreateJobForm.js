@@ -1,7 +1,7 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 
-import { CustomSelect } from "../../../components/CustomSelect";
+import { CustomSelect } from "../../../components/form/CustomSelect";
 import { InputField } from "../../../components/form/InputField";
 import { NameInputSVG } from "../../../components/svg/NameInputSVG";
 import { MoneySVG } from "../../../components/svg/MoneySVG";
@@ -12,6 +12,7 @@ import LocationSearchInput from "../../shared/MapsAutocomplete";
 
 const types = ["nature", "portrait", "dogs", "cats"];
 
+// TODO: reduce private job request and job offer to one component
 export default class CreateJobForm extends React.Component {
   static propTypes = {
     submitHandler: PropTypes.func.isRequired
@@ -31,16 +32,117 @@ export default class CreateJobForm extends React.Component {
     jobLocation: "",
     jobType: "nature",
     jobBudget: "",
-    jobDate: this.createValidDate(new Date()),
+    serviceFee: 10,
+    jobTaxation: 25,
+    jobTotalBudget: "",
+    jobStartDate: this.createValidDate(new Date()),
+    jobEndDate: this.createValidDate(new Date()),
+    jobTime: "",
     jobDescription: "",
     jobAddress: "",
     joblocationPlaceholder: "",
-    jobdetailedAddress: {}
+    jobdetailedAddress: {},
+    countries: [],
+    jobInsurance: false,
+    jobInsuranceAmount: '',
+    jobInsuranceDue: '',
+    requestAmount: ''
+  };
+
+  componentDidMount() {
+    this.fetchCountries();
+  }
+
+  /**
+   * Fetches countries + tax rates.
+   */
+  fetchCountries = () => {
+    fetch("../tax_rates.json")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        // Work with JSON data here
+        const res = Object.entries(data).map(([name, value]) => ({
+          name,
+          value
+        }));
+        this.setState({countries: res});
+      });
   };
 
   changeHandler = e => {
+    const target = e.target.name;
     this.setState({
-      [`job${e.target.name}`]: e.target.value
+      [`job${target}`]: e.target.value
+    },
+      () => {
+        console.log(this.state);
+        if (target === "Budget" || (target === "detailedAddress")) this.calculateAmount();
+      });
+  };
+
+  /**
+   * Calculates total amount of the job offer.
+   */
+  calculateAmount = () => {
+    let {jobBudget, jobdetailedAddress, serviceFee, countries} = this.state;
+    // converts budget into a number
+    jobBudget = Number(jobBudget);
+    // calculates the fee
+    const calcFee = (jobBudget / 100) * serviceFee;
+    // adds the fee to the budget
+    let totalBudget = jobBudget + calcFee;
+    // looks for correct taxation and converts it into number
+    const jobTaxation = jobdetailedAddress.country ? Number(
+      countries.filter(country => country.name === jobdetailedAddress.country)[0].value
+    ) : 25;
+    // calculates the tax
+    const calcTax = (totalBudget / 100) * jobTaxation;
+    // adds taxation to the budget and formats number
+    totalBudget = this.formatNum(totalBudget + calcTax);
+    this.setState({
+      jobTotalBudget: totalBudget,
+      jobTaxation
+    });
+  };
+
+  /**
+   * Rounds number to two digits.
+   *
+   * @param number
+   * @returns {string}
+   */
+  formatNum = number => {
+    return (Math.round(number * 100) / 100).toFixed(2);
+  };
+
+  onFocus = e => {
+    e.currentTarget.type = "date";
+  };
+
+  onBlur = (e, type) => {
+    e.currentTarget.type = "text";
+    e.currentTarget.placeholder = type;
+  };
+
+  onFocusTime = e => {
+    e.currentTarget.type = "time";
+  };
+
+  onBlurTime = e => {
+    e.currentTarget.type = "text";
+    e.currentTarget.placeholder = "Time";
+  };
+
+  /**
+   * Handles the change of a checkbox.
+   *
+   * @param e
+   */
+  checkBoxChangeHandler = e => {
+    this.setState({
+      [`job${e.target.name}`]: e.target.checked
     });
   };
 
@@ -83,10 +185,15 @@ export default class CreateJobForm extends React.Component {
       jobTitle,
       jobType,
       jobBudget,
-      jobDate,
+      jobStartDate,
+      jobEndDate,
+      jobTime,
       jobDescription,
       showCustomSelect,
-      joblocationPlaceholder
+      joblocationPlaceholder,
+      jobInsurance,
+      jobInsuranceDue,
+      jobInsuranceAmount
     } = this.state;
 
     let today = new Date();
@@ -137,10 +244,30 @@ export default class CreateJobForm extends React.Component {
             svg={
               <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
             }
-            value={jobDate || today}
+            value={jobStartDate || today}
             changeHandler={this.changeHandler}
             type="date"
-            name="Date"
+            name="StartDate"
+            min={today}
+          />
+          <InputField
+            svg={
+              <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
+            }
+            value={jobEndDate || today}
+            changeHandler={this.changeHandler}
+            type="date"
+            name="EndDate"
+            min={today}
+          />
+          <InputField
+            svg={
+              <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
+            }
+            value={jobTime}
+            changeHandler={this.changeHandler}
+            type="time"
+            name="Time"
             min={today}
           />
           <TextArea
@@ -152,6 +279,41 @@ export default class CreateJobForm extends React.Component {
             changeHandler={this.changeHandler}
             placeholder="Job description"
           />
+          <label className="checkbox-container">
+            <input
+              type="checkbox"
+              name="Insurance"
+              onChange={this.checkBoxChangeHandler}
+              checked={jobInsurance}
+            />
+            <span className="checkmark"/>
+            Insurance payment
+          </label>
+          {jobInsurance && (
+            <div className="two-inputs-container">
+              <InputField
+                value={jobInsuranceAmount}
+                changeHandler={this.changeHandler}
+                type="number"
+                name="InsuranceAmount"
+                placeholder="Amount of insurance"
+                min="10"
+              />
+              <InputField
+                svg={
+                  <CalendarSVG classes="gb-icon gb-icon-medium gb-icon-fill-white inputIcon" />
+                }
+                value={jobInsuranceDue}
+                changeHandler={this.changeHandler}
+                onFocus={this.onFocus}
+                onBlur={e => this.onBlur(e, "Due Date")}
+                type="text"
+                placeholder="Due Date"
+                name="InsuranceDue"
+                min={today}
+              />
+            </div>
+          )}
           <input
             className="gb-btn gb-btn-large gb-btn-primary"
             type="submit"

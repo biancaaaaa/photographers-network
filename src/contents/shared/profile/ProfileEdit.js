@@ -11,10 +11,7 @@ class ProfileEdit extends React.Component {
     lastName: this.props.lastName,
     locationPlaceholder: this.props.locationString,
     detailedAddress: null,
-    photoURL: this.props.photoURL,
-    companyName: this.props.companyName,
-    iban: this.props.iban,
-    bic: this.props.bic
+    companyName: this.props.companyName
   };
 
   /**
@@ -31,7 +28,7 @@ class ProfileEdit extends React.Component {
    */
   updateUser = e => {
     e.preventDefault();
-    let { firstName, lastName, detailedAddress, companyName, iban, bic } = this.state;
+    let { firstName, lastName, detailedAddress, companyName } = this.state;
     const {
       type,
       updateUserData,
@@ -47,9 +44,7 @@ class ProfileEdit extends React.Component {
       companyName,
       type,
       homeAddressId,
-      allLocations,
-      iban,
-      bic
+      allLocations
     ).then(() => history.push("/dashboard"));
   };
 
@@ -68,13 +63,14 @@ class ProfileEdit extends React.Component {
   }
 
   render() {
-    const { type, uid } = this.props;
+    const { type, uid, photoURL } = this.props;
     return (
       <ProfileEditView
         updateUserHandler={this.updateUser}
         changeHandler={this.handleChange}
         type={type}
         uid={uid}
+        photoURL={photoURL}
         {...this.state}
       />
     );
@@ -109,8 +105,6 @@ const mapStateToProps = state => {
     photoURL: userData.profileImageUrl,
     type: userData.type,
     companyName: userData.companyName,
-    iban: userData.bankCredentials.iban,
-    bic: userData.bankCredentials.bic,
     uid: state.firebase.auth.uid
   };
 };
@@ -123,9 +117,7 @@ const mapDispatchToProps = dispatch => ({
     companyName,
     type,
     homeAddressId,
-    allLocations,
-    iban,
-    bic
+    allLocations
   ) =>
     dispatch(
       updateUserInfo(
@@ -135,9 +127,7 @@ const mapDispatchToProps = dispatch => ({
         companyName,
         type,
         homeAddressId,
-        allLocations,
-        iban,
-        bic
+        allLocations
       )
     ),
   actionReset: () => dispatch(actionReset())
