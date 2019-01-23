@@ -2095,3 +2095,89 @@ span.bread-crumb-click-area {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.notification-bell {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f45b69;
+  height: 40px;
+  width: 40px;
+  border: 1px solid white;
+  border-radius: 50%;
+  z-index: 10;
+  bottom: 15px;
+  right: 15px;
+}
+
+.notification-bell .bellIcon {
+  width: 50%;
+}
+
+.notification-box {
+  position: fixed;
+  height: calc(100vh - 70px);
+  width: 100vw;
+  background-color: #f45b69;
+  z-index: 9;
+  bottom: 0;
+  color: white;
+  overflow: hidden;
+  transition: all .5s ease;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  padding: 20px;
+}
+
+.notification-header .header-link {
+  margin: 10px;
+  border: 1px solid white;
+  padding: 5px;
+  border-radius: 20px;
+  font-size: 12px;
+  width: 100px;
+  text-align: center;
+  opacity: .6;
+}
+
+.notification-header .header-link.active {
+  opacity: 1;
+}
+
+.notification-list {
+  height: calc(100vh - 200px);
+  overflow-y: scroll;
+}
+
+.notification {
+  padding: 30px 50px;
+}
+
+.notification .notification-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: 600;
+}
+
+.notification .notification-date {
+  font-size: 12px;
+}
+
+.close-icon {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  height: 30px;
+  width: 30px;
+  background-color: black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

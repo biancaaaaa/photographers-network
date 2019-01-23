@@ -16,7 +16,6 @@ import DeclinedPrivateJob from "../components/DeclinedPrivateJob";
 import SubmitWork from "../contents/photographer/single-job/SubmitWork";
 import ProgressSingleJob from "../contents/shared/single-job/ProgressSingleJob";
 import OpenSingleJob from "../contents/shared/single-job/OpenSingleJob";
-import AdminDashboard from "../contents/admin/AdminDashboard";
 import Payouts from "../contents/photographer/dashboard/Payouts";
 import {GbFooter} from "../components/nav-footer/Footer";
 import Review from "../contents/shared/single-job/Review";
@@ -24,6 +23,7 @@ import AllReviews from "../contents/shared/reviews/AllReviews";
 import FinishedJobs from "../contents/photographer/finished-jobs/FinishedJobs";
 import ReactGA from "react-ga";
 import AllJobRequests from "../contents/shared/job-requests/AllJobRequests";
+import NotificationBell from "../contents/shared/NotificationBell";
 
 //Sends data about the page url each time the url changes
 const LogPage = () => {
@@ -36,6 +36,7 @@ export default ({userOn, userType}) => (
     <React.Fragment>
       <GbNavBar/>
       <LogPage/>
+      <NotificationBell/>
       <div className="gb-app-wrapper">
         <Switch>
           <Route
@@ -67,7 +68,6 @@ export default ({userOn, userType}) => (
           <Route
             path="/dashboard"
             render={props => {
-              if (userType === "admin") return <AdminDashboard {...props}/>;
               return userOn ? <Dashboard {...props} /> : <Redirect to="/signin"/>
             }
             }

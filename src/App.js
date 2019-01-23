@@ -19,7 +19,7 @@ class App extends Component {
     if (profile.isLoaded) {
       return <Routes userOn={auth.uid} userType={profile.type} />;
     } else {
-      return <h2>STILL LOADING FOR THE PROFILE DATA... HANG ON!</h2>;
+      return <h2>Loading profile data...</h2>;
     }
   }
 }

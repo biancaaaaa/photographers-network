@@ -1,13 +1,13 @@
 import React from "react";
-import queryString from "query-string";
+//import queryString from "query-string";
 import { connect } from "react-redux";
 
 import PrivateJobFunctionality from "../contents/company/private-job/PrivateJobFunctionality";
 
 const PrivateJobRequest = props => {
-  const { user, location } = props;
+  //const { user, location } = props;
   /* Initial check to see if this is the correct user(photographer) */
-  let userQueryId = queryString.parse(location.search).user;
+  //let userQueryId = queryString.parse(location.search).user;
   const correctUser = true; //userQueryId === user.uid;
 
   return correctUser ? (
