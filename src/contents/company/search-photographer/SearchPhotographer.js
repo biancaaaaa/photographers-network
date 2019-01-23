@@ -5,10 +5,29 @@ import { isLoaded, isEmpty, firestoreConnect } from "react-redux-firebase";
 
 import { PhotographersList } from "../../../components/PhotographersList";
 import { SearchInput } from "../../../components/form/SearchInput";
+import {FilterContainer} from "./FilterContainer";
 
 class SearchPhotographers extends Component {
   state = {
-    searchedValue: ""
+    searchedValue: "",
+    showSortItems: false,
+    filters: [
+      {
+        name: 'nearest location',
+        value: 'location',
+        active: false
+      },
+      {
+        name: 'landscape photographer',
+        value: 'landscape',
+        active: false
+      },
+      {
+        name: 'portrait photographer',
+        value: 'portrait',
+        active: false
+      }
+    ]
   };
 
   handleChange = e => {
@@ -19,9 +38,57 @@ class SearchPhotographers extends Component {
     e.preventDefault();
   };
 
+  /**
+   * Toggles the container with available filters.
+   */
+  toggleSortContainer = () => {
+    this.setState(prevState => ({
+      showSortItems: !prevState.showSortItems
+    }));
+  };
+
+  /**
+   * Toggles filter active or inactive.
+   *
+   * @param id
+   */
+  toggleFilter = id => {
+    let filters = [...this.state.filters];
+    const index = filters.findIndex(filter => filter.value === id);
+    console.log(index);
+    filters[index].active = !filters[index].active;
+    this.setState({filters, showSortItems: false});
+  };
+
+  /**
+   * Applies filters to the photographers.
+   *
+   * @param photographers
+   * @param activeFilters
+   * @returns {*}
+   */
+  applyFilters(photographers, activeFilters) {
+    if (activeFilters.length < 1) return photographers;
+    const {profile} = this.props;
+    const location = Object.values(profile.locations)[0];
+    let filteredPhotographers = [];
+    for (let i = 0; i < activeFilters.length; i++) {
+      if (activeFilters[i].value === 'location') {
+        const locationPgs = photographers.filter(pg => {
+          const city = Object.values(pg.locations)[0].city;
+          return city === location.city;
+        });
+        filteredPhotographers = [...filteredPhotographers, ...locationPgs];
+      } else {
+        filteredPhotographers = [...filteredPhotographers, ...photographers.filter(pg => pg.photographerType && pg.photographerType.toLowerCase() === activeFilters[i].value)];
+      }
+    }
+    return [...new Set(filteredPhotographers)];
+  }
+
   render() {
     let { photographers } = this.props;
-    const { searchedValue } = this.state;
+    const { searchedValue, showSortItems, filters } = this.state;
 
     if (!isLoaded(photographers)) {
       return <h2>Loading.... Photographers data!</h2>;
@@ -31,6 +98,12 @@ class SearchPhotographers extends Component {
       return <h2>No photographers could be found!</h2>;
     }
 
+    // get the active filters
+    const activeFilters = filters.filter(filter => filter.active);
+    // apply active filters to photographers array
+    photographers = this.applyFilters(photographers, activeFilters);
+
+    // look, if there is a search value
     if (searchedValue) {
       photographers = photographers.filter(el => {
         const regExp = new RegExp(`^${searchedValue}`, "i");
@@ -52,6 +125,12 @@ class SearchPhotographers extends Component {
               searchHandler={this.search}
             />
           </div>
+          <FilterContainer filters={filters}
+                           activeFilters={activeFilters}
+                           toggleFilterHandler={this.toggleFilter}
+                           toggleSortContainer={this.toggleSortContainer}
+                           showSortItems={showSortItems}
+          />
           <PhotographersList list={photographers} />
         </div>
       </React.Fragment>
@@ -60,7 +139,8 @@ class SearchPhotographers extends Component {
 }
 
 const mapStateToProps = state => ({
-  photographers: state.firestore.ordered.photographers
+  photographers: state.firestore.ordered.photographers,
+  profile: state.firebase.profile
 });
 
 export default compose(

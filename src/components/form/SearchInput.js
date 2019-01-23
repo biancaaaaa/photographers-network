@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 import searchIconURL from '../../svg/search-icon-white.png';
-import filterIconURL from '../../svg/white-filter-icon.png';
 
 export const SearchInput = ({placeholder, searchHandler, changeHandler, value, name}) => {
   return (
@@ -12,7 +11,6 @@ export const SearchInput = ({placeholder, searchHandler, changeHandler, value, n
                onChange={changeHandler} name={name}/>
         <img src={searchIconURL} alt="search" className="search-icon"/>
       </div>
-      <img src={filterIconURL} alt="filter" className="filter-icon"/>
     </form>
   );
 };

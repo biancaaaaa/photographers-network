@@ -1824,6 +1824,7 @@ span.bread-crumb-click-area {
 .white-container {
   padding-top: 1px;
   background-color: white;
+  min-height: calc(100vh - 210px);
 }
 
 .white-container .gb-btn {
@@ -1874,6 +1875,7 @@ span.bread-crumb-click-area {
 .black-bg-header .gb-search-form {
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .black-bg-header .gb-search-form .filter-icon {
@@ -1884,11 +1886,13 @@ span.bread-crumb-click-area {
   border-radius: 50px;
   width: 100%;
   box-sizing: border-box;
+  border: 1px solid #484848;
 }
 
 .black-bg-header .gb-search-form .input-container {
   position: relative;
-  width: 80%;
+  width: 100%;
+  margin: 0 10px;
 }
 .black-bg-header .gb-search-form .input-container .search-icon {
   position: absolute;
@@ -2115,6 +2119,10 @@ span.bread-crumb-click-area {
   width: 50%;
 }
 
+.notification-bell:hover {
+  cursor: pointer;
+}
+
 .notification-box {
   position: fixed;
   height: calc(100vh - 70px);
@@ -2143,6 +2151,7 @@ span.bread-crumb-click-area {
   width: 100px;
   text-align: center;
   opacity: .6;
+  transition: .3s ease;
 }
 
 .notification-header .header-link.active {
@@ -2180,4 +2189,87 @@ span.bread-crumb-click-area {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.close-icon:hover {
+  cursor: pointer;
+}
+
+.grey-bg-header {
+  background-color: #ececec;
+  padding: 10px 20px;
+}
+
+.sort-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+}
+
+.add-icon {
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bolder;
+  color: #c7c7c7;
+  border: 1px solid #c7c7c7;
+  transition: ease .3s;
+}
+
+.add-icon:hover {
+  cursor: pointer;
+}
+
+.add-icon.turned {
+  transform: rotate(132deg);
+}
+
+.sort-items {
+  display: flex;
+  transition: height .5s ease;
+  overflow: hidden;
+}
+
+.sort-item {
+  border: 1px solid #c7c7c7;
+  background-color: white;
+  font-size: 8px;
+  font-weight: bold;
+  margin: 15px 5px 5px 5px;
+  padding: 0 5px;
+  border-radius: 20px;
+  height: 20px;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  transition: .3s ease;
+}
+
+.sort-item span {
+  width: 80px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sort-item.active {
+  background-color: #f94652;
+  color: white;
+  border-color: #9b2e36;
+}
+
+.active-filter-container {
+  display: flex;
+  width: 70%;
+  overflow-x: scroll;
+}
+
+.active-filter-container .sort-item {
+  margin-top: 5px;
 }

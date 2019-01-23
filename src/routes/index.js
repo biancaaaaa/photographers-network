@@ -36,7 +36,7 @@ export default ({userOn, userType}) => (
     <React.Fragment>
       <GbNavBar/>
       <LogPage/>
-      <NotificationBell/>
+      { userOn && <NotificationBell/> }
       <div className="gb-app-wrapper">
         <Switch>
           <Route
