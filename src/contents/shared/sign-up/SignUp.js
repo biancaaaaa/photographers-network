@@ -35,7 +35,6 @@ class SignUp extends Component {
   };
 
   changeStep = step => {
-    console.log(step);
     //check for the second step
     if (
       step === 2 &&
@@ -74,7 +73,7 @@ class SignUp extends Component {
 
   signup = e => {
     e.preventDefault();
-    this.props.signUserUp(this.state);
+    this.props.signUserUp({...this.state, type: this.props.type});
   };
 
   //Reset the general loading when unmountin
@@ -90,6 +89,7 @@ class SignUp extends Component {
       photographerType
     } = this.state;
     const { loadingDB, type, successDB, errorDB, closeHandler } = this.props;
+    console.log(type);
 
     let component = <div />;
     switch (currentStep) {

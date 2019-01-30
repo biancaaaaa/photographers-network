@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
+import {HashRouter, Route, Switch, Redirect} from "react-router-dom";
 import Dashboard from "../contents/shared/dashboard/Dashboard";
 import SignIn from "../contents/shared/sign-in/SignIn";
 import Home from "../contents/shared/home/Home";
@@ -32,7 +32,7 @@ const LogPage = () => {
 };
 
 export default ({userOn, userType}) => (
-  <BrowserRouter>
+  <HashRouter>
     <React.Fragment>
       <GbNavBar/>
       <LogPage/>
@@ -187,5 +187,5 @@ export default ({userOn, userType}) => (
         <GbFooter/>
       </div>
     </React.Fragment>
-  </BrowserRouter>
+  </HashRouter>
 );

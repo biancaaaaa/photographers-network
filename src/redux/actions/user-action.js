@@ -64,6 +64,8 @@ export const sigUpUser = newUser => {
     const firebase = getFirebase();
     const firestore = getFirestore();
 
+    console.log(newUser);
+
     const detailedAddress = newUser.detailedAddress;
     firebase
       .auth()
