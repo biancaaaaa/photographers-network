@@ -14,7 +14,7 @@ class Payouts extends React.Component {
     if (!isLoaded(jobOffers)) return <LoadingPage/>;
 
     const jobs = profile.type === "photographer" ? jobOffers.filter(job => job.photographer.uid === auth.uid) :
-    jobOffers.filter(job => job.companyId === auth.uid);
+      jobOffers.filter(job => job.companyId === auth.uid);
     // get the sum of all payouts
     let total = 0;
     jobs.forEach(job => {
@@ -23,11 +23,14 @@ class Payouts extends React.Component {
 
     return (
       <div>
-        <ul className="paymentList">
+        <ul className="paymentList white-container">
           {
-            jobs.map(job =>
-              <JobCard key={job.id} {...job}/>
-            )
+            jobs.length > 0 ? (
+                jobs.map(job =>
+                  <JobCard key={job.id} {...job}/>
+                )
+              ) :
+              <p>No payouts.</p>
           }
         </ul>
         <div className="black-yellow-box">

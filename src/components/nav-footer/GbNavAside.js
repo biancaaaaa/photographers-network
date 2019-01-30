@@ -18,74 +18,74 @@ const links = {
     {
       to: "dashboard",
       txt: "DASHBOARD",
-      svg: <img src={DashboardURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="dashboard" />
+      svg: <img src={`.${DashboardURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="dashboard" />
     },
     {
       to: "jobs",
       txt: "JOB OFFERTS",
-      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offer" />
+      svg: <img src={`.${JobOffertURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offer" />
     },
     {
       to: "ProfileEdit",
       txt: "PROFILE SETTINGS",
-      svg: <img src={ProfileURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="profile-edit" />
+      svg: <img src={`.${ProfileURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="profile-edit" />
     },
     {
       to: "dashboard/billing-information",
       txt: "BILLING INFORMATION",
-      svg: <img src={BillingInfoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="billing-info" />
+      svg: <img src={`.${BillingInfoURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="billing-info" />
     },
     {
       to: "dashboard/payout/photographer",
       txt: "PAY OUT",
-      svg: <img src={PayoutPhoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout" />
+      svg: <img src={`.${PayoutPhoURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout" />
     },
     {
       to: "all-job-requests",
       txt: "JOB REQUESTS",
-      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
+      svg: <img src={`.${JobOffertURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
     }
   ],
   company: [
     {
       to: "dashboard",
       txt: "DASHBOARD",
-      svg: <img src={DashboardURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="dashboard"/>
+      svg: <img src={`.${DashboardURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="dashboard"/>
     },
     {
       to: "search-photographers",
       txt: "SEARCH PHOTOGRAPHERS",
-      svg: <img src={SearchPhotoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="search"/>
+      svg: <img src={`.${SearchPhotoURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="search"/>
     },
     {
       to: "createJob",
       txt: "CREATE JOB OFFERT",
-      svg: <img src={CreateJobURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="create-job"/>
+      svg: <img src={`.${CreateJobURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="create-job"/>
     },
     {
       to: "myJobOffers",
       txt: "JOB OFFERTS",
-      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
+      svg: <img src={`.${JobOffertURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
     },
     {
       to: "ProfileEdit",
       txt: "PROFILE SETTINGS",
-      svg: <img src={ProfileURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="profile"/>
+      svg: <img src={`.${ProfileURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="profile"/>
     },
     {
       to: "dashboard/billing-information",
       txt: "BILLING INFORMATION",
-      svg: <img src={BillingInfoURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="billing" />
+      svg: <img src={`.${BillingInfoURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="billing" />
     },
     {
       to: "dashboard/payout/company",
       txt: "PAY OUT",
-      svg: <img src={PayoutComURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout"/>
+      svg: <img src={`.${PayoutComURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="payout"/>
     },
     {
       to: "all-job-requests",
       txt: "JOB REQUESTS",
-      svg: <img src={JobOffertURL} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
+      svg: <img src={`.${JobOffertURL}`} className="nav-aside-icon gb-icon-medium gb-icon-white-opacity-50" alt="job-offers" />
     }
   ]
 };
